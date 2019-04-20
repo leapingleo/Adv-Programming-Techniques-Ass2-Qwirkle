@@ -6,7 +6,7 @@ using namespace std;
 class Save{
 public:
 
-    void saveGame(int argc, char* argv[]);
+    void saveGame();
     void loadGame();
 
 
