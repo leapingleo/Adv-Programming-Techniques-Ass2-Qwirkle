@@ -2,7 +2,9 @@
 #define PLAYER_H
 
 #include "TileCodes.h"
-
+#include <iostream>
+#include "LinkedList.h"
+#include "Tile.h"
 //PLAYER GOT:
 //1. tiles on hand
 //2. name and score
@@ -20,9 +22,17 @@ public:
   Player();
 
   void setName(std::string name);
+
+  void addTiles(Tile* tile);
+
+  void showTilesOnHand();
+
+  LinkedList* getTilesOnHand();
 private:
   std::string name;
   int score;
+  LinkedList* tilesOnHand;
+
 
 };
 

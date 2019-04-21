@@ -15,8 +15,9 @@ public:
    void deleteFront();
 
    int count();
+   bool has(std::string name);
 
-   Node* getNextNode();
+   Node* getNext();
 private:
    Node* head;
 };

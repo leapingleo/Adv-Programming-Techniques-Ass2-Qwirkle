@@ -32,7 +32,7 @@ void LinkedList::show(){
   }
 }
 
-Node* LinkedList::getNextNode(){
+Node* LinkedList::getNext(){
   Node* node = head;
   deleteFront();
 
@@ -54,4 +54,16 @@ int LinkedList::count(){
     current = current->next;
   }
   return count;
+}
+
+bool LinkedList::has(std::string name){
+  bool found = false;
+  Node* current = head;
+
+  while (current != nullptr){
+    if (name == current->getTile()->toString() && !found)
+      found = true;
+    current = current->next;
+  }
+  return found;
 }
