@@ -15,16 +15,20 @@ public:
 
   string boardHeaderToString(int rows);
 
-  void store(Tile* tile);
+  void store(Tile* tile, int row, int col);
 
   string boardBodyToString();
 
   string letterForRows(int rowNumber);
 
-  //vector<vector<Tile*> > board(6, vector<Tile*> a(6));
+  vector<vector<Tile*> > boardRows;
 
-  int row;
-  int col;
+  int getRows();
+
+  int getCols();
+
+  int rows = 0;
+  int cols = 0;
 };
 
 #endif

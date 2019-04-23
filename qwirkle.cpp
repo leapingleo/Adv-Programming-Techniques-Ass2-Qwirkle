@@ -15,7 +15,11 @@ int main(void) {
    LinkedList* list = new LinkedList();
    Board* board = new Board();
    Tile* tile = new Tile(ORANGE, 1);
-   board->store(tile);
+   board->store(tile, 2, 2);
+   Tile* tile1 = new Tile(BLUE, 5);
+   board->store(tile1, 3, 3);
+   Tile* tile2 = new Tile(PURPLE, 3);
+   board->store(tile2, 3, 3);
    cout << board->boardHeaderToString(6);
    cout << board->boardBodyToString();
 
