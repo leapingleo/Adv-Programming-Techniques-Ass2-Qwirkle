@@ -19,25 +19,33 @@
 
 class Player {
 public:
-  Player();
+  Player(std::string name);
 
   void setName(std::string name);
 
   void addTiles(Tile* tile);
 
+  void removeTile(std::string name);
+
   void showTilesOnHand();
 
   void replaceTile(std::string name);
 
+  void canTakeTurn(bool state);
+
   LinkedList* getTilesOnHand();
 
   Tile* getToBeReplacedTile();
+
+  Tile* getTileToPlace(std::string name);
+
+  bool isPlayersTurn();
 private:
   std::string name;
   int score;
   LinkedList* tilesOnHand;
   Tile* tileToReplace;
-
+  bool canPlay;
 };
 
 #endif

@@ -13,9 +13,11 @@ public:
 
   Board();
 
-  string boardHeaderToString(int rows);
-
   void store(Tile* tile, int row, int col);
+
+  void printBoard();
+
+  string boardHeaderToString();
 
   string boardBodyToString();
 

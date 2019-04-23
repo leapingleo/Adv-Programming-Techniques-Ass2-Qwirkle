@@ -27,15 +27,19 @@ void LinkedList::show(){
   Node* current = head;
 
   while (current != nullptr){
-    std::cout << current->getTile()->toString() << std::endl;
+    if (current->next != nullptr)
+      std::cout << current->getTile()->toString() << ", ";
+    else
+      std::cout << current->getTile()->toString();
     current = current->next;
   }
+  std::cout << std::endl;
 }
 
 //get next node
 Node* LinkedList::getNext(){
   Node* node = head;
-  deleteFront();
+//  deleteFront();
 
   return node;
 }
@@ -106,4 +110,8 @@ Node* LinkedList::findNode(std::string name){
     current = current->next;
   }
   return matchingNode;
+}
+
+Node* LinkedList::getHead(){
+  return head;
 }

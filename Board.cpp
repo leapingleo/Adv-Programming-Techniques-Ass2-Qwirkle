@@ -9,18 +9,30 @@ Board::Board(){
 
 //store the tile into the 2d vector at index row, col
 void Board::store(Tile* tile, int row, int col){
-  if (boardRows[row][col] == nullptr)
+  if (boardRows[row][col] == nullptr) {
+     if (rows - row == 1 && cols - col == 1) {
+       rows += 1;
+       cols += 1;
+       boardRows.resize(rows, vector<Tile*>(cols));
+     } else if (cols - col == 1) {
+       cols += 1;
+       boardRows.resize(rows, vector<Tile*>(cols));
+     } else if (rows - row == 1){
+       rows += 1;
+       boardRows.resize(rows, vector<Tile*>(cols));
+     }
     boardRows[row][col] = tile;
+  //  std::cout << boardRows[3][8]->toString();
+  }
 }
 
 string Board::boardBodyToString(){
   string s = "";
 
-  for (int i = 0; i < row; i++){
+  for (int i = 0; i < rows; i++){
     //conver row number to letters
     s += letterForRows(i) + " |";
-    for (int j = 0; j < col; j++){
-      //retrieve the tile from the vector at index (i,j)
+    for (int j = 0; j < cols; j++){
       if (boardRows[i][j] != nullptr)
         s += boardRows[i][j]->toString() + "|";
       else{
@@ -33,12 +45,12 @@ string Board::boardBodyToString(){
 }
 
 
-string Board::boardHeaderToString(int rows){
+string Board::boardHeaderToString(){
   string s = "   ";
-  int numOfDashesToPrint = rows * 3 + 1;
+  int numOfDashesToPrint = cols * 3 + 1;
 
   //first row of the board, 1, 2, 3, 4, ...
-  for (int i = 0; i < rows; i++){
+  for (int i = 0; i < cols; i++){
     s += std::to_string(i) + "  ";
   }
 
@@ -96,4 +108,9 @@ int Board::getRows(){
 
 int Board::getCols(){
   return cols;
+}
+
+void Board::printBoard(){
+  std::cout << boardHeaderToString();
+  std::cout << boardBodyToString();
 }
