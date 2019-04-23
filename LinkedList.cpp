@@ -32,6 +32,7 @@ void LinkedList::show(){
   }
 }
 
+//get next node
 Node* LinkedList::getNext(){
   Node* node = head;
   deleteFront();
@@ -39,13 +40,17 @@ Node* LinkedList::getNext(){
   return node;
 }
 
+//delete front node
 void LinkedList::deleteFront(){
-  Node* headNext = head->next;
-  delete head;
-  head = headNext;
+  if (this->head != nullptr) {
+    Node* toDelete = this->head;
+    this->head = toDelete->next;
+    delete toDelete;
+  }
 }
 
-int LinkedList::count(){
+//return the size of the list
+int LinkedList::size(){
   int count = 0;
   Node* current = head;
 
@@ -56,6 +61,7 @@ int LinkedList::count(){
   return count;
 }
 
+//if a node is found in the list
 bool LinkedList::has(std::string name){
   bool found = false;
   Node* current = head;
@@ -66,4 +72,38 @@ bool LinkedList::has(std::string name){
     current = current->next;
   }
   return found;
+}
+
+void LinkedList::remove(std::string name){
+  Node* current = head;
+  Node* prev = nullptr;
+  bool removed = false;
+
+  while (current != nullptr){
+    if (current->getTile()->toString() == name && !removed){
+      Node* copyCurrent = current;
+      delete current;
+      prev->next = copyCurrent->next;
+      removed = true;
+    } else {
+      prev = current;
+      current = current->next;
+    }
+  }
+}
+
+//returns a matching node
+Node* LinkedList::findNode(std::string name){
+  Node* matchingNode = nullptr;
+  bool found = false;
+  Node* current = head;
+
+  while (current != nullptr){
+    if (current->getTile()->toString() == name && !found) {
+      matchingNode = current;
+      found = true;
+    }
+    current = current->next;
+  }
+  return matchingNode;
 }

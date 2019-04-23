@@ -27,12 +27,16 @@ public:
 
   void showTilesOnHand();
 
+  void replaceTile(std::string name);
+
   LinkedList* getTilesOnHand();
+
+  Tile* getToBeReplacedTile();
 private:
   std::string name;
   int score;
   LinkedList* tilesOnHand;
-
+  Tile* tileToReplace;
 
 };
 

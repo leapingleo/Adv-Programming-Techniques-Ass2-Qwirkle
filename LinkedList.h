@@ -13,11 +13,13 @@ public:
    void add(Tile* tile);
    void show();
    void deleteFront();
-
-   int count();
+   void remove(std::string name);
+   
+   int size();
    bool has(std::string name);
 
    Node* getNext();
+   Node* findNode(std::string name);
 private:
    Node* head;
 };
