@@ -5,34 +5,44 @@ Board::Board(){
   cols = 6;
 
   boardRows = vector<vector<Tile*> > (rows, vector<Tile*>(cols));
+
 }
 
 //store the tile into the 2d vector at index row, col
 void Board::store(Tile* tile, int row, int col){
   if (boardRows[row][col] == nullptr) {
-     if (rows - row == 1 && cols - col == 1) {
-       rows += 1;
+     if (cols - col == 1) {
        cols += 1;
-       boardRows.resize(rows, vector<Tile*>(cols));
-     } else if (cols - col == 1) {
-       cols += 1;
-       boardRows.resize(rows, vector<Tile*>(cols));
+       for (int i = 0; i < rows; i++)
+        boardRows[i].resize(cols);
      } else if (rows - row == 1){
        rows += 1;
        boardRows.resize(rows, vector<Tile*>(cols));
      }
+    // boardRows.resize(rows, vector<Tile*>(cols));
     boardRows[row][col] = tile;
-  //  std::cout << boardRows[3][8]->toString();
   }
+  // for (int i = 0; i < boardRows.size(); i++){
+  //   //conver row number to letters
+  //   std::cout << letterForRows(i) << " |";
+  //   for (int j = 0; j < boardRows[i].size(); j++){
+  //     if (boardRows[i][j] != nullptr)
+  //       std::cout << boardRows[i][j]->toString() << "|";
+  //     else{
+  //       std::cout << "  |";
+  //     }
+  //   }
+  //   std::cout << std::endl;
+  // }
 }
 
 string Board::boardBodyToString(){
   string s = "";
 
-  for (int i = 0; i < rows; i++){
+  for (int i = 0; i < boardRows.size(); i++){
     //conver row number to letters
     s += letterForRows(i) + " |";
-    for (int j = 0; j < cols; j++){
+    for (int j = 0; j < boardRows[i].size(); j++){
       if (boardRows[i][j] != nullptr)
         s += boardRows[i][j]->toString() + "|";
       else{

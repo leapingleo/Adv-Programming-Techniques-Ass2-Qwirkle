@@ -83,13 +83,18 @@ void LinkedList::remove(std::string name){
   Node* prev = nullptr;
   bool removed = false;
 
-  while (current != nullptr){
-    if (current->getTile()->toString() == name && !removed){
+  while (current != nullptr && !removed){
+    if (current->getTile()->toString() == name && current == head){
+      deleteFront();
+      removed = true;
+    }
+    else if (current->getTile()->toString() == name){
       Node* copyCurrent = current;
       delete current;
       prev->next = copyCurrent->next;
       removed = true;
-    } else {
+    }
+    else  {
       prev = current;
       current = current->next;
     }

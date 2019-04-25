@@ -60,3 +60,7 @@ void Player::canTakeTurn(bool state){
 bool Player::isPlayersTurn(){
   return canPlay;
 }
+
+std::string Player::getName(){
+  return name;
+}

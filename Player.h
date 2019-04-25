@@ -40,6 +40,8 @@ public:
   Tile* getTileToPlace(std::string name);
 
   bool isPlayersTurn();
+
+  std::string getName();
 private:
   std::string name;
   int score;
