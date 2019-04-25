@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "Board.h"
 #include <iostream>
-
+#include "Game.h"
 #define EXIT_SUCCESS    0
 
 using std::cout;
@@ -12,51 +12,52 @@ using std::endl;
 
 
 int main(void) {
-   LinkedList* list = new LinkedList();
-   //手动下棋测试
-    Board* board = new Board();
-   Player* player1 = new Player("Leo");
-   player1->canTakeTurn(true);
-   Player* player2 = new Player("Tomas");
-   player2->canTakeTurn(false);
-   //初始化牌堆
-   for (int i = 1; i < 7; i++)
-     for (int j = 0; j < 6; j++)
-       list->add(new Tile(converToColour(j), i));
+   Game* game = new Game();
+   game->play();
+   // LinkedList* list = new LinkedList();
+   // //手动下棋测试
+   //  Board* board = new Board();
+   // Player* player1 = new Player("Leo");
+   // player1->canTakeTurn(true);
+   // Player* player2 = new Player("Tomas");
+   // player2->canTakeTurn(false);
+   // //初始化牌堆
+   // for (int i = 1; i < 7; i++)
+   //   for (int j = 0; j < 6; j++)
+   //     list->add(new Tile(converToColour(j), i));
+   //
+   // //Player 1先抽6张牌
+   // for (int i = 0; i < 6; i++){
+   //   player1->addTiles(list->getNext()->getTile());
+   //   list->deleteFront();
+   // }
+   // //Player 2再抽6张牌
+   // for (int i = 0; i < 6; i++){
+   //   player2->addTiles(list->getNext()->getTile());
+   //   list->deleteFront();
+   // }
+   //
+   // while (true){
+   //   cout << player1->getName() << ", it's your turn" << std::endl;
+   //   board->printBoard();
+   //   cout << endl;
+   //   player1->showTilesOnHand();
+   //   cout << endl;
+   //   std::string command;
+   //   cout << "> ";
+   //   std::getline(std::cin, command);
+   //   std::string tileName = command.substr(6,2);
+   //   int placeAtRow = std::stoi(command.substr(12,1));
+   //   int placeAtCol = std::stoi(command.substr(13,1));
+   //   Tile* tileToPlace = player1->getTileToPlace(tileName);
+   //   player1->removeTile(tileName);
+   //   player1->addTiles(list->getNext()->getTile());
+   //   list->deleteFront();
+   //
+   //   board->store(tileToPlace, placeAtRow, placeAtCol);
 
-   //Player 1先抽6张牌
-   for (int i = 0; i < 6; i++){
-     player1->addTiles(list->getNext()->getTile());
-     list->deleteFront();
-   }
-   //Player 2再抽6张牌
-   for (int i = 0; i < 6; i++){
-     player2->addTiles(list->getNext()->getTile());
-     list->deleteFront();
-   }
-
-   while (true){
-     cout << player1->getName() << ", it's your turn" << std::endl;
-     board->printBoard();
-     cout << endl;
-     cout << "Your hand is ";
-     player1->showTilesOnHand();
-     cout << endl;
-     std::string command;
-     cout << "> ";
-     std::getline(std::cin, command);
-     std::string tileName = command.substr(6,2);
-     int placeAtRow = std::stoi(command.substr(12,1));
-     int placeAtCol = std::stoi(command.substr(13,1));
-     Tile* tileToPlace = player1->getTileToPlace(tileName);
-     player1->removeTile(tileName);
-     player1->addTiles(list->getNext()->getTile());
-     list->deleteFront();
-
-     board->store(tileToPlace, placeAtRow, placeAtCol);
-
-   }
-   delete list;
+  // }
+//   delete list;
   // delete player1;
   // delete player2;
    return EXIT_SUCCESS;

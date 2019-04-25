@@ -50,7 +50,12 @@ Tile* Player::getTileToPlace(std::string name){
 }
 
 Tile* Player::getToBeReplacedTile(){
-  return tileToReplace;
+  Tile* tile = nullptr;
+
+  if (tilesOnHand->has(name))
+    tile = tilesOnHand->findNode(name)->getTile();
+
+  return tile;
 }
 
 void Player::canTakeTurn(bool state){
