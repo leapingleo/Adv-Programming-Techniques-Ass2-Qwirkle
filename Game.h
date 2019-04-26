@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Board.h"
 #include <iostream>
+#include <fstream>
 
 using std::cout;
 using std::endl;
@@ -11,6 +12,8 @@ class Game{
 public:
 
   Game();
+
+  void save();
 
   void gameSetup();
 

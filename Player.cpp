@@ -58,14 +58,6 @@ Tile* Player::getToBeReplacedTile(){
   return tile;
 }
 
-void Player::canTakeTurn(bool state){
-  canPlay = state;
-}
-
-bool Player::isPlayersTurn(){
-  return canPlay;
-}
-
 std::string Player::getName(){
   return name;
 }
