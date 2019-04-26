@@ -60,4 +60,16 @@ void Game::makeAMove(Player* player){
 
   board->store(tileToPlace, placeAtRow, placeAtCol);
   cout << std::endl;
+  save();
+}
+
+void Game::save(){
+  std::string s = board->boardHeaderToString();
+  s += board->boardBodyToString();
+  std::string fileName = "save.txt";
+
+  std::ofstream ofile(fileName);
+  if(!ofile.fail()){
+    ofile << s;
+  }
 }

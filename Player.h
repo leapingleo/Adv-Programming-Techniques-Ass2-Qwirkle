@@ -31,15 +31,11 @@ public:
 
   void replaceTile(std::string name);
 
-  void canTakeTurn(bool state);
-
   LinkedList* getTilesOnHand();
 
   Tile* getToBeReplacedTile();
 
   Tile* getTileToPlace(std::string name);
-
-  bool isPlayersTurn();
 
   std::string getName();
 private:
@@ -47,7 +43,6 @@ private:
   int score;
   LinkedList* tilesOnHand;
   Tile* tileToReplace;
-  bool canPlay;
 };
 
 #endif

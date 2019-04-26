@@ -49,7 +49,7 @@ string Board::boardBodyToString(){
         s += "  |";
       }
     }
-    s += "\n";
+    s += "\r\n";
   }
   return s;
 }
@@ -65,11 +65,11 @@ string Board::boardHeaderToString(){
   }
 
   //second row of the board, dashes
-  s += "\n  ";
+  s += "\r\n  ";
   for (int i = 0; i < numOfDashesToPrint; i++){
     s += "-";
   }
-  s += "\n";
+  s += "\r\n";
   return s;
 }
 
