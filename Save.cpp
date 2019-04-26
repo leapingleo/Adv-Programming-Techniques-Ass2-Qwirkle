@@ -1,7 +1,4 @@
-#include<iostream>
-#include<fstream>
-
-using namespace std;
+#include "Save.h"
 
 struct stockType{
     string nameP1;
@@ -14,28 +11,56 @@ struct stockType{
     char tileP1;
 };
 
-void saveGame()
+
+void Save::saveGame(LinkedList* p1Hand, LinkedList* p2Hand, LinkedList* tileBag, string p1Name, string p2Name, int p1Score, int p2Score, string boardHead, string boardBody, string filename)
 {
-    string filename;
-    cout << "Enter filename: " ;
-    cin >> filename;
-    cout << endl;
     ofstream ofile(filename);
     if(!ofile.fail()){
-        ofile << "nameP1" << "\r\n" << endl;
-        ofile << "scoreP1" << "\r\n" << endl;
-        ofile << "char* tileP1[]" << "\r\n" << endl;
-        ofile << "nameP2" << "\r\n" << endl;
-        ofile << "scoreP2" << "\r\n" << endl;
-        ofile << "char* tileP2[]" << "\r\n" << endl;
-        ofile << "char* board[]" << "\r\n" << endl;
-        ofile << "char* tileBags[]" << "\r\n" << endl;
-        ofile << "which player" << "\r\n" << endl;
+        ofile << p1Name << "\r\n";
+        ofile << p1Score << "\r\n"; 
+
+        Node* current = p1Hand->getHead();
+        while(current != nullptr){
+            if(current -> next != nullptr)
+                ofile << current->getTile()->toString() << ", ";
+            else
+                ofile << current->getTile()->toString() << "\r\n";
+            current = current->next;
+        
+        }       
+
+        ofile << p2Name << "\r\n";
+        ofile << p2Score << "\r\n";
+
+        current = p2Hand->getHead();
+        while(current != nullptr){
+            if(current -> next != nullptr)
+                ofile << current->getTile()->toString() << ", ";
+            else
+                ofile << current->getTile()->toString() << "\r\n";
+            current = current->next;
+        
+        }
+
+        ofile << boardHead << boardBody << "\r\n";
+
+        current = tileBag->getHead();
+        while(current != nullptr){
+            if(current -> next != nullptr)
+                ofile << current->getTile()->toString() << ", ";
+            else
+                ofile << current->getTile()->toString() << "\r\n";
+            
+        }
+        
+
+        ofile << "which player" << "\r\n"; 
+
         ofile.close();
     }
 }
 
-void loadGame(){
+void Save::loadGame(){
     
     int index;
     string filename;
