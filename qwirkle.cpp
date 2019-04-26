@@ -7,8 +7,7 @@
 #include "Game.h"
 #define EXIT_SUCCESS    0
 
-using std::cout;
-using std::endl;
+using namespace std;
 
 
 int main(void) {
@@ -113,3 +112,35 @@ Player* player2 = new Player();
 //
  cout << "Now the bag has " << list->size() << " tiles. " << endl;
 */
+
+
+int menu(){
+  cout << "Menu" << endl;
+  cout << "----" << endl;
+  int choice;
+  while(true){
+    cin >> choice;
+    switch(choice) {
+      case 1:
+        cout << "1. New Game" << endl;
+
+        return choice;
+      case 2:
+        cout << "2. Load Game" << endl;
+
+        return choice;
+      case 3:
+        cout << "3. Show student information" << endl;
+
+        return choice;
+      case 4:
+        cout << "4. Quit" << endl;
+
+        return choice;
+      
+    }
+  }
+
+
+
+}
