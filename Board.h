@@ -1,9 +1,11 @@
 #ifndef ASSIGN2_BOARD_H
 #define ASSIGN2_BOARD_H
 
+
 #include "Tile.h"
 #include <iostream>
 #include <vector>
+
 
 using std::vector;
 using std::string;
@@ -11,7 +13,7 @@ using std::string;
 class Board {
 public:
 
-  Board();
+  Board(int rows, int cols);
 
   void store(Tile* tile, int row, int col);
 
@@ -21,9 +23,11 @@ public:
 
   string boardBodyToString();
 
-  string letterForRows(int rowNumber);
+  bool isTileAlreadyAt(int row, int col);
 
-  vector<vector<Tile*> > boardRows;
+  //string letterForRows(int rowNumber);
+
+  vector<vector<Tile*> > tilesOnBoard;
 
   int getRows();
 

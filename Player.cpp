@@ -24,11 +24,6 @@ void Player::showTilesOnHand(){
   std::cout << std::endl;
 }
 
-
-LinkedList* Player::getTilesOnHand(){
-  return tilesOnHand;
-}
-
 void Player::replaceTile(std::string name){
   if (tilesOnHand->has(name)){
     tileToReplace = tilesOnHand->findNode(name)->getTile();
@@ -41,7 +36,7 @@ void Player::removeTile(std::string name){
     tilesOnHand->remove(name);
 }
 
-Tile* Player::getTileToPlace(std::string name){
+Tile* Player::findTile(std::string name){
   Tile* tile = nullptr;
 
   if (tilesOnHand->has(name))
@@ -58,6 +53,14 @@ Tile* Player::getToBeReplacedTile(){
   return tile;
 }
 
+LinkedList* Player::getTilesOnHand(){
+  return tilesOnHand;
+}
+
 std::string Player::getName(){
   return name;
+}
+
+int Player::getScore(){
+  return score;
 }
