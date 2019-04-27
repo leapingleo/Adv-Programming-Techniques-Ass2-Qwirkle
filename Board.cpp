@@ -6,7 +6,7 @@ Board::Board(int rows, int cols){
   this->cols = cols;
 
   tilesOnBoard = vector<vector<Tile*> > (rows, vector<Tile*>(cols));
-
+  isFirstTilePlaced = false;
 }
 
 //store the tile into the 2d vector at index row, col
@@ -22,6 +22,7 @@ void Board::store(Tile* tile, int row, int col){
      }
     // tilesOnBoard.resize(rows, vector<Tile*>(cols));
     tilesOnBoard[row][col] = tile;
+    isFirstTilePlaced = true;
   }
 }
 
@@ -79,4 +80,31 @@ void Board::printBoard(){
 
 bool Board::isTileAlreadyAt(int row, int col){
   return tilesOnBoard[row][col] != nullptr;
+}
+
+// bool Board::isBoardEmpty(){
+//   int count = 0;
+//
+//   for (int i = 0; i < tilesOnBoard.size(); i++){
+//     for (int j = 0; j < tilesOnBoard[i].size(); j++){
+//       if (tilesOnBoard[i][j] == nullptr){
+//         count++;
+//     }
+//   }
+//
+//   return count == (rows * cols);
+// }
+
+bool Board::canPlace(int atRow, int atCol){
+  bool can = false;
+
+  if (!isFirstTilePlaced)
+    can = true;
+  else if (tilesOnBoard[atRow - 1][atCol] != nullptr ||
+           tilesOnBoard[atRow + 1][atCol] != nullptr ||
+          tilesOnBoard[atRow][atCol - 1] != nullptr ||
+          tilesOnBoard[atRow][atCol + 1] != nullptr)
+    can = true;
+
+  return can;
 }
