@@ -61,18 +61,14 @@ void Game::makeAMove(Player* player){
     int placeAtRow = letterToInt(command.substr(12,1));
     int placeAtCol = std::stoi(command.substr(13,2));
 
-    if (!isWithinBound(placeAtRow, placeAtCol, board->getRows(), board->getCols())){
-      printError("BOARD LOCATION NOT VALID! TRY AGAIN!");
-      makeAMove(player);
-    }
-
     if (player->getTilesOnHand()->has(tileName)) {
       Tile* tileToPlace = player->findTile(tileName);
 
-      if (!board->isTileAlreadyAt(placeAtRow, placeAtCol)){
-        placeTile(tileToPlace, placeAtRow, placeAtCol, player);
+      if (!board->isTileAlreadyAt(placeAtRow, placeAtCol)
+        && isWithinBound(placeAtRow, placeAtCol, board->getRows(), board->getCols())){
+          placeTile(tileToPlace, placeAtRow, placeAtCol, player);
       } else {
-        printError("SPOT TAKEN! FIND A NEW PLACE. LOL");
+        printError("SPOT NOT AVAILABLE! TRY AGAIN!");
         makeAMove(player);
       }
     } else {
