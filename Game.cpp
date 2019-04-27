@@ -2,6 +2,7 @@
 
 Game::Game(){
   board = new Board(boardRows, boardCols);
+
   player1 = new Player("Leo");
   player2 = new Player("Tomas");
   tileBag = new LinkedList();
@@ -11,17 +12,17 @@ Game::Game(){
 }
 
 void Game::gameSetup(){
-  //初始化牌堆
+  //initialize the tile bag, not randomized just yet!
   for (int i = 1; i < 7; i++)
     for (int j = 0; j < 6; j++)
       tileBag->add(new Tile(converToColour(j), i));
 
-  //Player 1先抽6张牌
+  //Player 1 get 6 tiles
   for (int i = 0; i < 6; i++){
     player1->addTiles(tileBag->getNext()->getTile());
     tileBag->deleteFront();
   }
-  //Player 2再抽6张牌
+  //Player 2 get 6 tiles
   for (int i = 0; i < 6; i++){
     player2->addTiles(tileBag->getNext()->getTile());
     tileBag->deleteFront();
@@ -66,7 +67,12 @@ void Game::makeAMove(Player* player){
 
       if (!board->isTileAlreadyAt(placeAtRow, placeAtCol)
         && isWithinBound(placeAtRow, placeAtCol, board->getRows(), board->getCols())){
-          placeTile(tileToPlace, placeAtRow, placeAtCol, player);
+          if (board->canPlace(placeAtCol, placeAtCol))
+            placeTile(tileToPlace, placeAtRow, placeAtCol, player);
+          else {
+            printError("NOT A VALID MOVE! TRY AGAIN!");
+            makeAMove(player);
+          }
       } else {
         printError("SPOT NOT AVAILABLE! TRY AGAIN!");
         makeAMove(player);
@@ -102,7 +108,7 @@ void Game::placeTile(Tile* tile, int atRow, int atCol, Player* player){
   player->removeTile(tile->toString());
   //draw a new tile
   player->addTiles(tileBag->getNext()->getTile());
-  //delete the withdrawn tile
+  //delete the withdrawn tile, which is always the head tile/node
   tileBag->deleteFront();
   board->store(tile, atRow, atCol);
   cout << std::endl;
