@@ -85,7 +85,15 @@ void Game::makeAMove(Player* player){
       printError("ARE YOU SURE YOU HAVE THIS TILE???");
       makeAMove(player);
     }
-  } else {
+  } 
+  else if (command.substr(0, 4) == "SAVE"){
+    filename = command.substr(5);
+    filename += ".txt";
+    saveGame(player1->getTilesOnHand(), player2->getTilesOnHand(), player1->getName(), player2->getName() );
+  }
+  
+  
+  else {
     printError("INVALID INPUT.");
     makeAMove(player);
   }
@@ -108,13 +116,56 @@ void Game::placeTile(Tile* tile, int atRow, int atCol, Player* player){
   cout << std::endl;
 }
 
-void Game::save(){
-  std::string s = board->boardHeaderToString();
-  s += board->boardBodyToString();
-  std::string fileName = "save.txt";
+void Game::saveGame(LinkedList* p1Hand, LinkedList* p2Hand, string p1Name, string p2Name /*int p1Score, int p2Score, */)
+{
+    std::string fullBoard = board->boardHeaderToString();
+    fullBoard += board->boardBodyToString();
 
-  std::ofstream ofile(fileName);
-  if(!ofile.fail()){
-    ofile << s;
-  }
+    std::ofstream ofile(filename);
+    if(!ofile.fail()){
+        ofile << p1Name << "\r\n";
+/*        ofile << p1Score << "\r\n"; 
+*/
+        Node* current = p1Hand->getHead();
+        while(current != nullptr){
+            if(current -> next != nullptr)
+                ofile << current->getTile()->toString() << ", ";
+            else
+                ofile << current->getTile()->toString() << "\r\n";
+            current = current->next;
+        
+        }       
+
+        ofile << p2Name << "\r\n";
+/*        ofile << p2Score << "\r\n";
+*/
+        current = p2Hand->getHead();
+        while(current != nullptr){
+            if(current -> next != nullptr)
+                ofile << current->getTile()->toString() << ", ";
+            else
+                ofile << current->getTile()->toString() << "\r\n";
+            current = current->next;
+        
+        }
+
+        ofile << fullBoard << "\r\n";
+
+        current = this->tileBag->getHead();
+        while(current != nullptr){
+            if(current -> next != nullptr)
+                ofile << current->getTile()->toString() << ", ";
+            else
+                ofile << current->getTile()->toString() << "\r\n";
+            current = current->next;
+            
+        }
+        
+
+        ofile << "which player" << "\r\n"; 
+
+        ofile.close();
+
+        cout << "Game successfully saved" << endl;
+    }
 }

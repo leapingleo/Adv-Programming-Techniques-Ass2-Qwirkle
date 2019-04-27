@@ -7,12 +7,18 @@
 #include "Game.h"
 #define EXIT_SUCCESS    0
 
-using namespace std;
+using std::endl;
+using std::cout;
+using std::cin;
 
+void menu();
+
+Game* game = new Game();
 
 int main(void) {
-   Game* game = new Game();
-   game->play();
+   cout << "Welcome to Qwirkle!" << endl;
+   cout << "-------------------" << endl;
+   menu();
    // LinkedList* list = new LinkedList();
    // //手动下棋测试
    //  Board* board = new Board();
@@ -114,33 +120,33 @@ Player* player2 = new Player();
 */
 
 
-int menu(){
+void menu(){
   cout << "Menu" << endl;
   cout << "----" << endl;
+  cout << "1. New Game" << endl;
+  cout << "2. Load Game" << endl;
+  cout << "3. Show student information" << endl;
+  cout << "4. Quit" << endl;
   int choice;
   while(true){
     cin >> choice;
     switch(choice) {
       case 1:
-        cout << "1. New Game" << endl;
-
-        return choice;
+        
+        game->play();
       case 2:
-        cout << "2. Load Game" << endl;
-
-        return choice;
+       
+        return;
       case 3:
-        cout << "3. Show student information" << endl;
+        
 
-        return choice;
+        return;
       case 4:
-        cout << "4. Quit" << endl;
+        
 
-        return choice;
+        return;
       
     }
   }
-
-
 
 }
