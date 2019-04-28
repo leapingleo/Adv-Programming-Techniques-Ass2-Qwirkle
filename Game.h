@@ -30,6 +30,11 @@ public:
   void placeTile(Tile* tile, int atRow, int atCol, Player* player);
 
   void replaceTile(std::string tileName, Player* player);
+
+  void saveGame(LinkedList* p1Hand, LinkedList* p2Hand, string p1Name, string p2Name /*int p1Score, int p2Score, */);
+  
+  void loadGame();
+
 private:
   Board* board;
   int boardRows = 6;
@@ -39,4 +44,5 @@ private:
   std::string currentPlayerName;
   LinkedList* tileBag;
   bool gameOver;
+  std::string filename;
 };
