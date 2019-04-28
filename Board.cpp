@@ -22,7 +22,8 @@ void Board::store(Tile* tile, int row, int col){
      }
     // tilesOnBoard.resize(rows, vector<Tile*>(cols));
     tilesOnBoard[row][col] = tile;
-    isFirstTilePlaced = true;
+    if (!isFirstTilePlaced)
+      isFirstTilePlaced = true;
   }
 }
 
@@ -102,8 +103,8 @@ bool Board::canPlace(int atRow, int atCol){
     can = true;
   else if (tilesOnBoard[atRow - 1][atCol] != nullptr ||
            tilesOnBoard[atRow + 1][atCol] != nullptr ||
-          tilesOnBoard[atRow][atCol - 1] != nullptr ||
-          tilesOnBoard[atRow][atCol + 1] != nullptr)
+           tilesOnBoard[atRow][atCol - 1] != nullptr ||
+           tilesOnBoard[atRow][atCol + 1] != nullptr)
     can = true;
 
   return can;

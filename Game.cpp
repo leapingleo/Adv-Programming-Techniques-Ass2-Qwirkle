@@ -65,9 +65,9 @@ void Game::makeAMove(Player* player){
     if (player->getTilesOnHand()->has(tileName)) {
       Tile* tileToPlace = player->findTile(tileName);
 
-      if (!board->isTileAlreadyAt(placeAtRow, placeAtCol)
-        && isWithinBound(placeAtRow, placeAtCol, board->getRows(), board->getCols())){
-          if (board->canPlace(placeAtCol, placeAtCol))
+      if (isWithinBound(placeAtRow, placeAtCol, board->getRows(), board->getCols())
+      && !board->isTileAlreadyAt(placeAtRow, placeAtCol)){
+          if (board->canPlace(placeAtRow, placeAtCol))
             placeTile(tileToPlace, placeAtRow, placeAtCol, player);
           else {
             printError("NOT A VALID MOVE! TRY AGAIN!");
