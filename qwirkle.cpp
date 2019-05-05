@@ -5,20 +5,26 @@
 #include "Board.h"
 #include <iostream>
 #include "Game.h"
+#include "Helper.h"
 #define EXIT_SUCCESS    0
 
 using std::endl;
 using std::cout;
 using std::cin;
 
-void menu();
+//void menu();
 
-Game* game = new Game();
 
 int main(void) {
    cout << "Welcome to Qwirkle!" << endl;
    cout << "-------------------" << endl;
-   menu();
+   std::string choice = getInput("1. New Game\n");
+
+   if (choice == "1"){
+     Game* game = new Game();
+     game->play();
+   }
+
    // LinkedList* list = new LinkedList();
    // //手动下棋测试
    //  Board* board = new Board();
@@ -119,34 +125,31 @@ Player* player2 = new Player();
  cout << "Now the bag has " << list->size() << " tiles. " << endl;
 */
 
-
-void menu(){
-  cout << "Menu" << endl;
-  cout << "----" << endl;
-  cout << "1. New Game" << endl;
-  cout << "2. Load Game" << endl;
-  cout << "3. Show student information" << endl;
-  cout << "4. Quit" << endl;
-  int choice;
-  while(true){
-    cin >> choice;
-    switch(choice) {
-      case 1:
-        
-        game->play();
-      case 2:
-       
-        return;
-      case 3:
-        
-
-        return;
-      case 4:
-        
-
-        return;
-      
-    }
-  }
-
-}
+//
+// void menu(){
+//   cout << "Menu" << endl;
+//   cout << "----" << endl;
+//   cout << "1. New Game" << endl;
+//   cout << "2. Load Game" << endl;
+//   cout << "3. Show student information" << endl;
+//   cout << "4. Quit" << endl;
+//   int choice;
+//   while(true){
+//     cin >> choice;
+//     switch(choice) {
+//       case 1:
+//
+//         game->play();
+//       case 2:
+//
+//         return;
+//       case 3:
+//
+//         return;
+//       case 4:
+//
+//         return;
+//
+//     }
+//   }
+//}

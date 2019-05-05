@@ -21,6 +21,8 @@ class Player {
 public:
   Player(std::string name);
 
+  ~Player();
+
   void setName(std::string name);
 
   void addTiles(Tile* tile);

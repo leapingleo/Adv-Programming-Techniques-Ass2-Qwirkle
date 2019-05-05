@@ -6,6 +6,13 @@ LinkedList::LinkedList() {
 }
 
 LinkedList::~LinkedList() {
+  Node* current = head;
+  
+  while (current != nullptr) {
+    Node* toDelete = current;
+    current = toDelete->next;
+    delete toDelete;
+  }
 }
 
 //add a tile to the end of the list

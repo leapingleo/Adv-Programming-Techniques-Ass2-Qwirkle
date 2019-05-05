@@ -8,5 +8,12 @@ Tile::Tile(Colour colour, Shape shape){
 
 std::string Tile::toString(){
   return colour + std::to_string(shape);
+}
 
+Colour Tile::getColour(){
+  return colour;
+}
+
+Shape Tile::getShape(){
+  return shape;
 }

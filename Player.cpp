@@ -6,6 +6,10 @@ Player::Player(std::string name){
   this->name = name;
 }
 
+Player::~Player(){
+  delete tilesOnHand;
+}
+
 void Player::addTiles(Tile* tile){
   tilesOnHand->add(tile);
 }

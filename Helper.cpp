@@ -135,3 +135,9 @@ std::string getInput(std::string s){
 bool isWithinBound(int atRow, int atCol, int maxRows, int maxCols){
   return atRow < maxRows && atCol < maxCols;
 }
+
+bool isSameColour(Tile* tile1, Tile* tile2){
+
+  return tile1->getColour() == tile2->getColour()
+         && tile1 != nullptr && tile2 != nullptr;
+}

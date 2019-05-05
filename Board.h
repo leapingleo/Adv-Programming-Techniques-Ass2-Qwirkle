@@ -3,6 +3,7 @@
 
 
 #include "Tile.h"
+#include "Helper.h"
 #include <iostream>
 #include <vector>
 
@@ -15,7 +16,7 @@ public:
 
   Board(int rows, int cols);
 
-  bool canPlace(int atRow, int atCol);
+  bool canPlace(int atRow, int atCol, Tile* tile);
 
   void store(Tile* tile, int row, int col);
 
@@ -27,18 +28,26 @@ public:
 
   bool isTileAlreadyAt(int row, int col);
 
-//  bool isBoardEmpty();
-  //string letterForRows(int rowNumber);
+  bool isFirstTileOnBoard();
 
-  vector<vector<Tile*> > tilesOnBoard;
+
+//  bool isBoardEmpty();
+
 
   int getRows();
 
   int getCols();
 
+  vector<vector<Tile*> > getTilesOnBoard();
+
+  bool checkHorizontalTiles(int atRow, int atCol, Tile* tile, int direction);
+
+  bool checkVerticalTiles(int atRow, int atCol, Tile* tile, int direction);
+
+private:
   int rows = 0;
   int cols = 0;
-
+  vector<vector<Tile*> > tilesOnBoard;
   bool isFirstTilePlaced;
 };
 

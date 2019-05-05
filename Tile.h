@@ -18,6 +18,10 @@ public:
    Shape  shape;
 
    std::string toString();
+
+   Colour getColour();
+
+   Shape getShape();
 };
 
 #endif // ASSIGN2_TILE_H

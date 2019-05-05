@@ -15,6 +15,8 @@ public:
 
   Game();
 
+  ~Game();
+
   void save();
 
   void gameSetup();
@@ -32,8 +34,14 @@ public:
   void replaceTile(std::string tileName, Player* player);
 
   void saveGame(LinkedList* p1Hand, LinkedList* p2Hand, string p1Name, string p2Name /*int p1Score, int p2Score, */);
-  
+
   void loadGame();
+
+  bool matchHorizontalTiles(vector<vector<Tile*> > boardTiles, int atRow, int atCol, Tile* tile, int direction);
+
+  bool matchVerticalTiles(vector<vector<Tile*> > boardTiles, int atRow, int atCol, Tile* tile, int direction);
+
+  bool canPlace(vector<vector<Tile*> > boardTiles, int atRow, int atCol, Tile* tile);
 
 private:
   Board* board;
