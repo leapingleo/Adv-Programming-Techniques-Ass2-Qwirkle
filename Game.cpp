@@ -377,3 +377,41 @@ void Game::saveGame(LinkedList* p1Hand, LinkedList* p2Hand, string p1Name,
         cout << "\r\nGame successfully saved\r\n" << endl;
     }
 }
+
+void Game::loadGame(LinkedList* p1Hand, LinkedList* p2Hand, string p1Name,
+                  string p2Name,int p1Score, int p2Score, string currentPlayer){
+    
+    string p1Tiles;
+    string p2Tiles;
+    string bagTiles;
+
+    string filename;
+    cout << "Enter the filename from which load a game: " ;
+    cin >> filename;
+    filename += ".txt";
+    cout << endl;
+    std::fstream loadG(filename, std::ios::in);
+    if(!loadG.fail()){
+      string loading;
+      getline(loadG, loading);
+      p1Name = loading;
+      getline(loadG, loading);
+      p1Score = stoi(loading);
+      getline(loadG, loading);
+      p1Tiles = loading;
+      getline(loadG, loading);
+      p2Name = loading;
+      getline(loadG, loading);
+      p2Score = stoi(loading);
+      getline(loadG, loading);
+      p2Tiles = loading;
+      
+
+    }
+    else{
+      cout << "No that file, please check the file name without '.txt'." << endl;
+    }
+    
+
+
+}

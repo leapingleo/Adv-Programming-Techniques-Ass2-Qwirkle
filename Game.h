@@ -9,6 +9,7 @@
 
 using std::cout;
 using std::endl;
+using std::cin;
 
 class Game{
 public:
@@ -30,7 +31,8 @@ public:
   void saveGame(LinkedList* p1Hand, LinkedList* p2Hand,
               string p1Name, string p2Name, int p1Score, int p2Score, string currentPlayer);
 
-  void loadGame();
+  void loadGame(LinkedList* p1Hand, LinkedList* p2Hand, string p1Name,
+                  string p2Name,int p1Score, int p2Score, string currentPlayer);
 
 private:
   Board* board;
