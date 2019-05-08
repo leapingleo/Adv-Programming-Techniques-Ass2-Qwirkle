@@ -50,9 +50,22 @@ void Game::AIMove(vector<vector<Tile*> > boardTiles){
         }
       }
 
-
+    //try each tile on the hand at each possible spot...
     for (int i = 0; i < possibleSpots.size(); i++) {
       cout << possibleSpots[i] << endl;
+      int atRow = std::stoi(possibleSpots[i].substr(0, 1));
+      int atCol = std::stoi(possibleSpots[i].substr(1,1));
+
+      Node* current = player2->getTilesOnHand()->getHead();
+
+      while (current != nullptr) {
+        Tile* tile = current->getTile();
+        if (canPlace(boardTiles, atRow, atCol, tile)) {
+          placeTile(tile, atRow, atCol, player2);
+          break;
+        }
+        current = current->next;
+      }
     }
 
 
@@ -95,8 +108,8 @@ void Game::play(){
       currentPlayerName = player2->getName();
     } else {
       displayInfo(player2);
-      //AIMove(board->getTilesOnBoard());
-      makeAMove(player2);
+      AIMove(board->getTilesOnBoard());
+      //makeAMove(player2);
       givePlayerScore(player2);
       currentPlayerName = player1->getName();
     }
