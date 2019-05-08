@@ -5,17 +5,6 @@
 #include <iostream>
 #include "LinkedList.h"
 #include "Tile.h"
-//PLAYER GOT:
-//1. tiles on hand
-//2. name and score
-//
-//PLAYER CAN:
-//1. place a tile on board
-//2. swap a tile
-//
-//checking methods:
-//1. check if player has the particular tile so that the player makes
-//   a valid move
 
 class Player {
 public:
@@ -27,15 +16,13 @@ public:
 
   void addTiles(Tile* tile);
 
+  void addScore(int score);
+
   void removeTile(std::string name);
 
   void showTilesOnHand();
 
-  void replaceTile(std::string name);
-
   LinkedList* getTilesOnHand();
-
-  Tile* getToBeReplacedTile();
 
   Tile* findTile(std::string name);
 

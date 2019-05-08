@@ -17,25 +17,35 @@ public:
 
   ~Game();
 
+  void generateRandomizedTileSet();
+
+  void AIMove(vector<vector<Tile*> > boardTiles);
+  
   void save();
 
   void gameSetup();
 
   void play();
 
-  void makeAMove(Player* player);
-
-  void gamePlay(Player* player);
-
-  void displayInfo(Player* player);
-
-  void placeTile(Tile* tile, int atRow, int atCol, Player* player);
-
-  void replaceTile(std::string tileName, Player* player);
-
-  void saveGame(LinkedList* p1Hand, LinkedList* p2Hand, string p1Name, string p2Name /*int p1Score, int p2Score, */);
+  void saveGame(LinkedList* p1Hand, LinkedList* p2Hand,
+              string p1Name, string p2Name, int p1Score, int p2Score, string currentPlayer);
 
   void loadGame();
+
+private:
+  Board* board;
+  LinkedList* tileBag;
+  Player* player1;
+  Player* player2;
+  int boardRows = 6;
+  int boardCols = 6;
+  int scoreToGive = 0;
+  std::string currentPlayerName;
+  std::string filename;
+  bool gameOver;
+  bool isQwirkle = false;
+
+  bool isGameOver();
 
   bool matchHorizontalTiles(vector<vector<Tile*> > boardTiles, int atRow, int atCol, Tile* tile, int direction);
 
@@ -43,14 +53,15 @@ public:
 
   bool canPlace(vector<vector<Tile*> > boardTiles, int atRow, int atCol, Tile* tile);
 
-private:
-  Board* board;
-  int boardRows = 6;
-  int boardCols = 6;
-  Player* player1;
-  Player* player2;
-  std::string currentPlayerName;
-  LinkedList* tileBag;
-  bool gameOver;
-  std::string filename;
+  void makeAMove(Player* player);
+
+  void displayInfo(Player* player);
+
+  void givePlayerScore(Player* player);
+
+  void placeTile(Tile* tile, int atRow, int atCol, Player* player);
+
+  void replaceTile(std::string tileName, Player* player);
+
+
 };

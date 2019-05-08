@@ -133,11 +133,38 @@ std::string getInput(std::string s){
 }
 
 bool isWithinBound(int atRow, int atCol, int maxRows, int maxCols){
-  return atRow < maxRows && atCol < maxCols;
+  return atRow > 0 && atCol > 0 && atRow < maxRows && atCol < maxCols;
 }
 
 bool isSameColour(Tile* tile1, Tile* tile2){
 
   return tile1->getColour() == tile2->getColour()
          && tile1 != nullptr && tile2 != nullptr;
+}
+
+std::vector<int> randomSet(int min, int max){
+  std::vector<int> a;
+  int set[max];
+
+  srand((int)time(NULL));
+
+  for (int i = 0; i < max; i++) {
+    set[i] = rand() % max + min;
+
+    //using j as comparision loop index
+    for (int j = 0; j < i; j++){
+      //keep generating a new number until it's unique
+      while (set[i] == set[j]){
+        set[i] = rand() % max + min;
+        std::cout << "if repeat, change to " << set[i] << std::endl;
+        //reset the compare loop to 0
+        j = 0;
+      }
+    }
+  }
+
+  for (int i = 0; i < max; i++)
+    a.push_back(set[i]);
+
+  return a;
 }
