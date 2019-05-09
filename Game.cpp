@@ -391,12 +391,16 @@ void Game::saveGame(LinkedList* p1Hand, LinkedList* p2Hand, string p1Name,
     }
 }
 
-void Game::loadGame(LinkedList* p1Hand, LinkedList* p2Hand, string p1Name,
-                  string p2Name,int p1Score, int p2Score, string currentPlayer){
+void Game::loadGame(){
     
     string p1Tiles;
     string p2Tiles;
-    string bagTiles;
+    string tilesBagL;
+    string boardL;
+    string p1Name;
+    string p2Name;
+    int p1Score;
+    int p2Score;
 
     string filename;
     cout << "Enter the filename from which load a game: " ;
@@ -418,7 +422,29 @@ void Game::loadGame(LinkedList* p1Hand, LinkedList* p2Hand, string p1Name,
       p2Score = stoi(loading);
       getline(loadG, loading);
       p2Tiles = loading;
+
+      getline(loadG, loading);
+      boardL = loading + "\r\n";
+      getline(loadG, loading);
+      boardL += loading + "\r\n";
+      while(loading[2]!=','){
+        getline(loadG, loading);
+        if(loading[2]!=','){
+          boardL += loading + "\r\n";
+        } 
+        else{
+          tilesBagL = loading;
+        }
+      }
+      getline(loadG, loading);
+      currentPlayerName = loading;
       
+      player1->setName(p1Name);
+      player2->setName(p2Name);
+      player1->setScore(p1Score);
+      player2->setScore(p2Score);
+
+//tilesOnHand, Board, tileBag is on going
 
     }
     else{

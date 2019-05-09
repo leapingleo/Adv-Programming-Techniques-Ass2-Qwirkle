@@ -14,6 +14,7 @@ public:
    Node*    next;
 
    Tile* getTile();
+/*   Tile* setTile(Colour colour, Shape shape);*/
 };
 
 #endif // ASSIGN2_NODE_H

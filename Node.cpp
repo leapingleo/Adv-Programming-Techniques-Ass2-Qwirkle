@@ -15,3 +15,8 @@ Node::Node(Node& other)
 Tile* Node::getTile(){
   return tile;
 }
+
+/*Tile* Node::setTile(Colour colour, Shape shape){
+   return tile;
+}
+*/

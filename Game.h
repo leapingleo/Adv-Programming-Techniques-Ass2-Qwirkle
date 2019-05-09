@@ -31,8 +31,7 @@ public:
   void saveGame(LinkedList* p1Hand, LinkedList* p2Hand,
               string p1Name, string p2Name, int p1Score, int p2Score, string currentPlayer);
 
-  void loadGame(LinkedList* p1Hand, LinkedList* p2Hand, string p1Name,
-                  string p2Name,int p1Score, int p2Score, string currentPlayer);
+  void loadGame();
 
 private:
   Board* board;
