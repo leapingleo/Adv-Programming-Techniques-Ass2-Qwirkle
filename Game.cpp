@@ -413,13 +413,13 @@ void Game::loadGame(){
       getline(loadG, loading);
       p1Name = loading;
       getline(loadG, loading);
-      p1Score = stoi(loading);
+      p1Score = std::stoi(loading);
       getline(loadG, loading);
       p1Tiles = loading;
       getline(loadG, loading);
       p2Name = loading;
       getline(loadG, loading);
-      p2Score = stoi(loading);
+      p2Score = std::stoi(loading);
       getline(loadG, loading);
       p2Tiles = loading;
 
@@ -439,12 +439,36 @@ void Game::loadGame(){
       getline(loadG, loading);
       currentPlayerName = loading;
       
+//name, score
       player1->setName(p1Name);
       player2->setName(p2Name);
       player1->setScore(p1Score);
       player2->setScore(p2Score);
 
-//tilesOnHand, Board, tileBag is on going
+//tiles
+      int i = 0;
+      while(p1Tiles.substr(i+2, 1) == ","){
+        int color = std::stoi(p1Tiles.substr(i, 1));
+        int shape = std::stoi(p1Tiles.substr(i+1, 1));
+        player1->addTiles(new Tile(converToColour(color), shape));
+        i += 2;
+      }
+      i = 0;
+      while(p2Tiles.substr(i+2, 1) == ","){
+        int color = std::stoi(p2Tiles.substr(i, 1));
+        int shape = std::stoi(p2Tiles.substr(i+1, 1));
+        player2->addTiles(new Tile(converToColour(color), shape));
+        i += 2;
+      }
+      i = 0;
+      while(tilesBagL.substr(i+2, 1) == ","){
+        int color = std::stoi(tilesBagL.substr(i, 1));
+        int shape = std::stoi(tilesBagL.substr(i+1, 1));
+        tileBag->add(new Tile(converToColour(color), shape));
+        i += 2;
+      }
+      
+//Board
 
     }
     else{
