@@ -469,6 +469,19 @@ void Game::loadGame(){
       }
       
 //Board
+      i = 0;
+      while(boardL.substr(i+3, 1) != " "){
+        i += 3;
+
+      }
+      boardCols = stoi(boardL.substr(i-3, 1));
+      
+      boardRows = boardL.length()/(i+3) - 2;
+
+      board = new Board(boardRows, boardCols);
+      
+
+
 
     }
     else{
