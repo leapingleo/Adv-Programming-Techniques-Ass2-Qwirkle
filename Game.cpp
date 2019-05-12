@@ -472,22 +472,25 @@ void Game::loadGame(){
       i = 0;
       while(boardL.substr(i+3, 1) != " "){
         i += 3;
-
       }
-      boardCols = stoi(boardL.substr(i-3, 1));
-      
+      boardCols = stoi(boardL.substr(i-3, 1));   
       boardRows = boardL.length()/(i+3) - 2;
-
       board = new Board(boardRows, boardCols);
       
+      for(i = 1; i < boardL.length(); i++){
+        if(boardL.substr(i, 1) == "|" && boardL.substr(i-1,1) != " "){
+          int color = std::stoi(boardL.substr(i-2, 1));
+          int shape = std::stoi(boardL.substr(i-1, 1));
+          int tileCol = ((i-2)%(3*(boardCols+3)))/3 - 1;
+          int tileRow = ((i-2)/(3*(boardCols+3)))-2;
 
-
-
+          board->store(new Tile(converToColour(color), shape), tileRow, tileCol);
+        }
+      }
     }
     else{
       cout << "No that file, please check the file name without '.txt'." << endl;
     }
     
-
 
 }
