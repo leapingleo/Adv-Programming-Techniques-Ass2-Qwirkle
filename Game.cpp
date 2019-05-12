@@ -487,6 +487,10 @@ void Game::loadGame(){
           board->store(new Tile(converToColour(color), shape), tileRow, tileCol);
         }
       }
+
+//current player
+
+
     }
     else{
       cout << "No that file, please check the file name without '.txt'." << endl;
