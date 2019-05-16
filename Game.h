@@ -9,6 +9,7 @@
 
 using std::cout;
 using std::endl;
+using std::cin;
 
 class Game{
 public:
@@ -16,6 +17,8 @@ public:
   Game();
 
   ~Game();
+
+  void newGame();
 
   void generateRandomizedTileSet();
 
