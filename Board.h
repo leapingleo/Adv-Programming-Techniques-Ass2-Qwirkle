@@ -16,6 +16,7 @@ public:
 
   Board(int rows, int cols);
 
+  ~Board();
 
   void store(Tile* tile, int row, int col);
 

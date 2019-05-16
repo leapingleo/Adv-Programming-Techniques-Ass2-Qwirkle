@@ -20,7 +20,7 @@ public:
   void generateRandomizedTileSet();
 
   void AIMove(vector<vector<Tile*> > boardTiles);
-  
+
   void save();
 
   void gameSetup();
@@ -63,5 +63,10 @@ private:
 
   void replaceTile(std::string tileName, Player* player);
 
+  void calculateScores(vector<vector<Tile*> > boardTiles, int atRow, int atCol);
+
+  int countColTiles(vector<vector<Tile*> > boardTiles, int atRow, int atCol, int direction);
+
+  int countRowTiles(vector<vector<Tile*> > boardTiles, int atRow, int atCol, int direction);
 
 };

@@ -8,6 +8,13 @@ Board::Board(int rows, int cols){
   isFirstTilePlaced = false;
 }
 
+Board::~Board(){
+  for (int i = 0; i < tilesOnBoard.size(); i++)
+    for (int j = 0; j < tilesOnBoard[i].size(); j++)
+      delete tilesOnBoard[i][j];
+}
+
+
 //store the tile into the 2d vector at index row, col
 void Board::store(Tile* tile, int row, int col){
   if (tilesOnBoard[row][col] == nullptr) {

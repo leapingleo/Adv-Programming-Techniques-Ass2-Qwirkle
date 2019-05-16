@@ -1,10 +1,10 @@
 
 #include "LinkedList.h"
 #include "Tile.h"
+#include "Menu.h"
 #include "Player.h"
 #include "Board.h"
 #include <iostream>
-#include "Game.h"
 #include "Helper.h"
 #define EXIT_SUCCESS    0
 
@@ -21,14 +21,16 @@ using std::shared_ptr;
 // }
 
 int main(void) {
-   cout << "Welcome to Qwirkle!" << endl;
-   cout << "-------------------" << endl;
-   std::string choice = getInput("1. New Game\n");
-
-   if (choice == "1"){
-     Game* game = new Game();
-     game->play();
-   }
+  Menu* menu = new Menu();
+  menu->getMenu();
+   // cout << "Welcome to Qwirkle!" << endl;
+   // cout << "-------------------" << endl;
+   // std::string choice = getInput("1. New Game\n");
+   //
+   // if (choice == "1"){
+   //   Game* game = new Game();
+   //   game->play();
+   // }
 
    // LinkedList* list = new LinkedList();
    // //手动下棋测试
