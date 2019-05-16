@@ -1,0 +1,14 @@
+0  1  2  3  4  5
+-------------------
+A |  |  |  |  |  |  |
+B |  |  |  |  |  |  |
+C |  |O1|O4|  |  |  |
+D |  |  |  |  |  |  |
+E |  |  |  |  |  |  |
+F |  |  |  |  |  |  |
+
+Your hand is,
+O1, O2, O2, O3, O3, Y1
+
+> place y1 at c3
+Either the spot is already taken or not a valid spot by the game rules. Think Again.
