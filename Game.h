@@ -18,6 +18,8 @@ public:
 
   ~Game();
 
+  void newGame();
+
   void generateRandomizedTileSet();
 
   void AIMove(vector<vector<Tile*> > boardTiles);

@@ -16,7 +16,11 @@ void Menu::getMenu()
   std::string choice = getInput(s);
   if(choice == "1") {
     Game* game = new Game();
-    game->play();
+    game->newGame();
+  }
+  else if (choice == "2") {
+    Game* game = new Game();
+    game->loadGame();
   }
   else if (choice == "3") {
     getStudentInfo();
