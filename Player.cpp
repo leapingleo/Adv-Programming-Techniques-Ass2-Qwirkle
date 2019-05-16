@@ -10,6 +10,10 @@ Player::~Player(){
   delete tilesOnHand;
 }
 
+void Player::setName(std::string name){
+  this->name = name;
+}
+
 void Player::addTiles(Tile* tile){
   tilesOnHand->add(tile);
 }
@@ -43,6 +47,11 @@ Tile* Player::findTile(std::string name){
 
 void Player::addScore(int score){
   this->score += score;
+}
+
+int Player::setScore(int score){
+  this->score = score;
+  return score;
 }
 
 LinkedList* Player::getTilesOnHand(){
