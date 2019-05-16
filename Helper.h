@@ -21,3 +21,5 @@ bool isWithinBound(int atRow, int atCol, int maxRows, int maxCols);
 bool isSameColour(Tile* tile1, Tile* tile2);
 
 std::vector<int> randomSet(int min, int max);
+
+std::vector<std::string> remove(std::string s, std::vector<std::string> set);

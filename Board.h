@@ -16,7 +16,6 @@ public:
 
   Board(int rows, int cols);
 
-  bool canPlace(int atRow, int atCol, Tile* tile);
 
   void store(Tile* tile, int row, int col);
 
@@ -40,9 +39,7 @@ public:
 
   vector<vector<Tile*> > getTilesOnBoard();
 
-  bool checkHorizontalTiles(int atRow, int atCol, Tile* tile, int direction);
 
-  bool checkVerticalTiles(int atRow, int atCol, Tile* tile, int direction);
 
 private:
   int rows = 0;

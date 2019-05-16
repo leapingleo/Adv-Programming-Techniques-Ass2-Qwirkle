@@ -156,7 +156,7 @@ std::vector<int> randomSet(int min, int max){
       //keep generating a new number until it's unique
       while (set[i] == set[j]){
         set[i] = rand() % max + min;
-        std::cout << "if repeat, change to " << set[i] << std::endl;
+        //std::cout << "if repeat, change to " << set[i] << std::endl;
         //reset the compare loop to 0
         j = 0;
       }
@@ -167,4 +167,14 @@ std::vector<int> randomSet(int min, int max){
     a.push_back(set[i]);
 
   return a;
+}
+
+std::vector<std::string> remove(std::string s, std::vector<std::string> set) {
+
+  for (int i = 0; i < set.size(); i++){
+    if (set[i] == s)
+      set.erase(set.begin() + i);
+  }
+  return set;
+
 }

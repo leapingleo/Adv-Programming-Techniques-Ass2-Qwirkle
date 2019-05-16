@@ -77,62 +77,6 @@ bool Board::isTileAlreadyAt(int row, int col){
 }
 
 
-bool Board::canPlace(int atRow, int atCol, Tile* tile){
-  int leftward = -1;
-  int rightward = 1;
-  int upward = -1;
-  int downward = 1;
-  bool can = false;
-
-//  std::cout << tile->getColour() << std::endl;
-  if (tilesOnBoard[atRow][atCol - 1] != nullptr)
-  std::cout << tilesOnBoard[atRow][atCol - 1]->getColour() << std::endl;
-
-  if (!isFirstTilePlaced)
-    can = true;
-
-  if (checkHorizontalTiles(atRow, atCol - 1, tile, leftward))
-    can = true;
-  if (checkHorizontalTiles(atRow, atCol + 1, tile, rightward))
-    can = true;
-  if (checkVerticalTiles(atRow - 1, atCol, tile, upward))
-    can = true;
-  if (checkVerticalTiles(atRow + 1, atCol, tile, downward))
-    can = true;
-
-  return can;
-}
-
-bool Board::checkHorizontalTiles(int atRow, int atCol, Tile* tile, int direction){
-  bool valid = false;
-
-  if (atCol > 0 && atCol < cols)
-    while (tilesOnBoard[atRow][atCol] != nullptr) {
-      if (tilesOnBoard[atRow][atCol]->getColour() == tile->getColour()
-          && tilesOnBoard[atRow][atCol]->getShape() != tile->getShape()) {
-
-          valid = true;
-        }
-      atCol += direction;
-  }
-  return valid;
-}
-
-bool Board::checkVerticalTiles(int atRow, int atCol, Tile* tile, int direction){
-  bool valid = false;
-
-  if (atRow > 0 && atRow < rows) {
-    while (tilesOnBoard[atRow][atCol] != nullptr) {
-      if (tilesOnBoard[atRow][atCol]->getColour() != tile->getColour()
-          && tilesOnBoard[atRow][atCol]->getShape() == tile->getShape()) {
-            valid = true;
-          }
-      atRow += direction;
-  }
-}
-  return valid;
-}
-
 vector<vector<Tile*> > Board::getTilesOnBoard(){
   return tilesOnBoard;
 }

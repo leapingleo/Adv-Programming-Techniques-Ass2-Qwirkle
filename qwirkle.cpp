@@ -11,9 +11,14 @@
 using std::endl;
 using std::cout;
 using std::cin;
-
+using std::shared_ptr;
 //void menu();
 
+// void foo(shared_ptr<int> arg);
+//
+// void foo(shared_ptr<int> arg)  {
+//   *arg += 1;
+// }
 
 int main(void) {
    cout << "Welcome to Qwirkle!" << endl;
