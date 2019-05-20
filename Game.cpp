@@ -95,7 +95,7 @@ void Game::play(){
     if (currentPlayerName == player1->getName()){
 
       displayInfo(player1);
-    //  AIMove(board->getTilesOnBoard(), player1);
+  //    AIMove(board->getTilesOnBoard(), player1);
       makeAMove(player1);
       givePlayerScore(player1);
       currentPlayerName = player2->getName();
@@ -169,7 +169,8 @@ void Game::makeAMove(Player* player){
       Tile* tileToPlace = player->findTile(tileName);
       vector<vector<Tile*> > currentTilesOnBoard = board->getTilesOnBoard();
 
-      if (!board->isTileAlreadyAt(placeAtRow, placeAtCol)){
+      if (!board->isTileAlreadyAt(placeAtRow, placeAtCol)
+          && isWithinBound(placeAtRow, placeAtCol, board->getRows(), board->getCols())){
         if (canPlace(currentTilesOnBoard, placeAtRow, placeAtCol, tileToPlace)) {
           placeTile(tileToPlace, placeAtRow, placeAtCol, player);
           calculateScores(currentTilesOnBoard,placeAtRow, placeAtCol);
@@ -480,7 +481,7 @@ void Game::loadGame(){
     int p2Score;
 
     string filename = getInput("Enter the filename from which load a game: ");
-    
+
     filename += ".txt";
     cout << endl;
     std::fstream loadFile(filename, std::ios::in);

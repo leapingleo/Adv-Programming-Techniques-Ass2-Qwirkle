@@ -1,13 +1,10 @@
-
-
 #include "Menu.h"
 #include <iostream>
-#define EXIT_SUCCESS    0
+#define EXIT_SUCCESS 0
 
 using std::endl;
 using std::cout;
 using std::cin;
-using std::shared_ptr;
 
 int main(void) {
   Menu* menu = new Menu();
@@ -46,7 +43,7 @@ int main(void) {
    //   list->deleteFront();
    // }
    //
-   // while (true){
+   // while (!gameOver){
    //   cout << player1->getName() << ", it's your turn" << std::endl;
    //   board->printBoard();
    //   cout << endl;

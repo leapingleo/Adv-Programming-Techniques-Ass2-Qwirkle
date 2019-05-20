@@ -40,6 +40,7 @@ void Menu::showMenu()
   else if (choice == "2") {
     Game* game = new Game();
     game->loadGame();
+    delete game;
   }
   else if (choice == "3") {
     getStudentInfo();
