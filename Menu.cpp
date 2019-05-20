@@ -28,13 +28,13 @@ void Menu::showMenu()
   if(choice == "1") {
     cout << "Starting a New Game" << endl;
     cout << endl;
-    string name1 = getPlayerNameInput(1);
-    string name2 = getPlayerNameInput(2);
+//    string name1 = getPlayerNameInput(1);
+  //  string name2 = getPlayerNameInput(2);
 
     cout << "Let's Play!\n" << endl;
     Game* game = new Game();
-    game->newGame(name1, name2);
-  //  game->newGame("PLAYER 1", "PLAYER 2");
+  //  game->newGame(name1, name2);
+    game->newGame("LEO", "TOMAS");
     delete game;
   }
   else if (choice == "2") {

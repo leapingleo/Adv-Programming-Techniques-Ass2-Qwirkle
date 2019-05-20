@@ -67,6 +67,8 @@ private:
 
   void calculateScores(vector<vector<Tile*> > boardTiles, int atRow, int atCol);
 
+  void endGameInfo(Player* p1, Player* p2);
+
   int countColTiles(vector<vector<Tile*> > boardTiles, int atRow, int atCol, int direction);
 
   int countRowTiles(vector<vector<Tile*> > boardTiles, int atRow, int atCol, int direction);

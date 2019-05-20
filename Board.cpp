@@ -99,5 +99,6 @@ bool Board::isFirstTileOnBoard(){
 }
 
 bool Board::isWithinBound(int atRow, int atCol){
-  return atRow >= 0 && atCol >= 0 && atRow < rows && atCol < cols;
+  return atRow >= 0 && atCol >= 0 && atRow < rows && atCol < cols
+          && atRow < 26 && atCol < 26;
 }
