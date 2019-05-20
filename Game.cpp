@@ -203,6 +203,7 @@ void Game::makeAMove(Player* player){
     saveGame(player1->getTilesOnHand(), player2->getTilesOnHand(),
           player1->getName(), player2->getName(),
           player1->getScore(), player2->getScore(), currentPlayerName);
+    makeAMove(player);
   }
   else {
     cout << "you typed " << command << endl;
