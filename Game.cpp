@@ -154,13 +154,12 @@ void Game::gameSetup(){
 }
 
 void Game::makeAMove(Player* player){
-//  std::string command;
-//  getline(cin, command);
   std::string command = getInput("> ");
   transform(command.begin(),command.end(),command.begin(),::toupper);
   //get row and col from player's command
 
-  if (command.substr(0, 6) == "PLACE "){
+  if (command.substr(0, 6) == "PLACE " && command.length() > 6
+        && command.substr(8, 1) == " " && command.substr(11,1) == " "){
     std::string tileName = command.substr(6,2);
     int placeAtRow = letterToInt(command.substr(12,1));
     int placeAtCol = std::stoi(command.substr(13,2));
@@ -169,8 +168,8 @@ void Game::makeAMove(Player* player){
       Tile* tileToPlace = player->findTile(tileName);
       vector<vector<Tile*> > currentTilesOnBoard = board->getTilesOnBoard();
 
-      if (!board->isTileAlreadyAt(placeAtRow, placeAtCol)
-          && isWithinBound(placeAtRow, placeAtCol, board->getRows(), board->getCols())){
+      if (board->isWithinBound(placeAtRow, placeAtCol) &&
+          !board->isTileAlreadyAt(placeAtRow, placeAtCol)){
         if (canPlace(currentTilesOnBoard, placeAtRow, placeAtCol, tileToPlace)) {
           placeTile(tileToPlace, placeAtRow, placeAtCol, player);
           calculateScores(currentTilesOnBoard,placeAtRow, placeAtCol);
@@ -203,6 +202,7 @@ void Game::makeAMove(Player* player){
     saveGame(player1->getTilesOnHand(), player2->getTilesOnHand(),
           player1->getName(), player2->getName(),
           player1->getScore(), player2->getScore(), currentPlayerName);
+    makeAMove(player);
   }
   else {
     cout << "you typed " << command << endl;

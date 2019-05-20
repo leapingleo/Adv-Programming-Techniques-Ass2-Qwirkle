@@ -40,8 +40,8 @@ private:
   LinkedList* tileBag;
   Player* player1;
   Player* player2;
-  int boardRows = 8;
-  int boardCols = 8;
+  int boardRows = 6;
+  int boardCols = 6;
   int scoreToGive = 0;
   std::string currentPlayerName;
   std::string filename;

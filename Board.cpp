@@ -82,7 +82,6 @@ bool Board::isTileAlreadyAt(int row, int col){
   return tilesOnBoard[row][col] != nullptr;
 }
 
-
 vector<vector<Tile*> > Board::getTilesOnBoard(){
   return tilesOnBoard;
 }
@@ -97,4 +96,8 @@ int Board::getCols(){
 
 bool Board::isFirstTileOnBoard(){
   return isFirstTilePlaced;
+}
+
+bool Board::isWithinBound(int atRow, int atCol){
+  return atRow >= 0 && atCol >= 0 && atRow < rows && atCol < cols;
 }

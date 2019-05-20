@@ -40,7 +40,7 @@ public:
 
   vector<vector<Tile*> > getTilesOnBoard();
 
-
+  bool isWithinBound(int atRow, int atCol);
 
 private:
   int rows = 0;
