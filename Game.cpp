@@ -2,7 +2,6 @@
 
 Game::Game(){
   /*board = new Board(boardRows, boardCols);
-
   player1 = new Player("Leo");
   player2 = new Player("Tomas");
   gameOver = false;
@@ -17,96 +16,115 @@ Game::~Game(){
 }
 
 bool Game::isGameOver() {
-  return tileBag->size() < 0 &&
-         player1->getTilesOnHand()->size() < 0 &&
-         player2->getTilesOnHand()->size() < 0;
+  return tileBag->size() == 0 &&
+         player1->getTilesOnHand()->size() == 0 &&
+         player2->getTilesOnHand()->size() == 0;
 }
 
-void Game::newGame(){
+void Game::newGame(string name1, string name2){
   board = new Board(boardRows, boardCols);
-  player1 = new Player("Leo");
-  player2 = new Player("Tomas");
-  gameOver = false;
+  player1 = new Player(name1);
+  player2 = new Player(name2);
   currentPlayerName = player1->getName();
   tileBag = new LinkedList();
   gameSetup();
   play();
 }
 
-void Game::AIMove(vector<vector<Tile*> > boardTiles){
+void Game::AIMove(vector<vector<Tile*> > boardTiles, Player* player){
   std::vector<std::string> possibleSpots;
+
+  if (!board->isFirstTileOnBoard()) {
+    Tile* firstTile = player->getTilesOnHand()->getHead()->getTile();
+    placeTile(firstTile, 2,3,player);
+  }
 
     for (int i = 0; i < boardTiles.size(); i++) {
       for (int j = 0; j < boardTiles[i].size(); j++) {
         if (boardTiles[i][j] != nullptr) {
           if (j - 1 > 0 && boardTiles[i][j - 1] == nullptr) {
-            string spotString = std::to_string(i) + std::to_string(j - 1);
+            string spotString = letterForRows(i) + std::to_string(j - 1);
             possibleSpots.push_back(spotString);
           }
           if (j + 1 < board->getCols() && boardTiles[i][j + 1] == nullptr) {
-            string spotString = std::to_string(i) + std::to_string(j + 1);
+            string spotString = letterForRows(i) + std::to_string(j + 1);
             possibleSpots.push_back(spotString);
           }
           if (i - 1 > 0 && boardTiles[i - 1][j] == nullptr) {
-            string spotString = std::to_string(i - 1) + std::to_string(j);
+            string spotString = letterForRows(i-1) + std::to_string(j);
             possibleSpots.push_back(spotString);
           }
           if (i + 1 < board->getRows() && boardTiles[i + 1][j] == nullptr) {
-            string spotString = std::to_string(i + 1) + std::to_string(j);
+            string spotString = letterForRows(i+1)  + std::to_string(j);
             possibleSpots.push_back(spotString);
           }
         }
       }
     }
   //  int n = 0;
-    Node* current = player2->getTilesOnHand()->getHead();
+    Node* current = player->getTilesOnHand()->getHead();
     bool placed = false;
   //  try each tile on the hand at each possible spot...
     for (int i = 0; i < possibleSpots.size(); i++) {
-      int atRow = std::stoi(possibleSpots[i].substr(0, 1));
-      int atCol = std::stoi(possibleSpots[i].substr(1,1));
+      int atRow = letterToInt(possibleSpots[i].substr(0, 1));
+      int atCol = std::stoi(possibleSpots[i].substr(1, 2));
 
       while (!placed && current != nullptr) {
         Tile* tile = current->getTile();
 
         if (canPlace(boardTiles, atRow, atCol, tile)
           && !board->isTileAlreadyAt(atRow, atCol)) {
-          placeTile(tile, atRow, atCol, player2);
+
+          placeTile(tile, atRow, atCol, player);
           calculateScores(board->getTilesOnBoard(), atRow, atCol);
           placed = true;
         }
         current = current->next;
       }
-      current = player2->getTilesOnHand()->getHead();
+      current = player->getTilesOnHand()->getHead();
      }
 
-   if (!placed) {
-     string tileToReplace = player2->getTilesOnHand()->getHead()->getTile()->toString();
-     replaceTile(tileToReplace, player2);
+   if (!placed && tileBag->size() > 0) {
+     string tileToReplace = player->getTilesOnHand()->getHead()->getTile()->toString();
+     replaceTile(tileToReplace, player);
   }
 }
 
 void Game::play(){
-  while (!isGameOver()) {
+    while (!isGameOver()) {
     if (currentPlayerName == player1->getName()){
+
       displayInfo(player1);
+    //  AIMove(board->getTilesOnBoard(), player1);
       makeAMove(player1);
       givePlayerScore(player1);
       currentPlayerName = player2->getName();
+      cout << "player 1: " << player1->getTilesOnHand()->size() << " tiles left" << endl;
     } else {
       displayInfo(player2);
-      AIMove(board->getTilesOnBoard());
-    //  makeAMove(player2);
+    //  AIMove(board->getTilesOnBoard(), player2);
+      makeAMove(player2);
       givePlayerScore(player2);
       currentPlayerName = player1->getName();
+      cout << "player 2: " << player2->getTilesOnHand()->size() << " tiles left" << endl;
     }
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
   }
+  board->printBoard();
+  cout << "GAME OVER" << endl;
+  cout << "Score for " << player1->getName() << ": " << player1->getScore() << endl;
+  cout << "Score for " << player2->getName() << ": " << player2->getScore() << endl;
+  if (player1->getScore() > player2->getScore())
+    cout << "Player " << player1->getName() << " won!" << endl;
+  else
+    cout << "Player " << player2->getName() << " won!" << endl;
+  cout << "Goodbye" << endl;
 }
 
 void Game::gameSetup(){
   //generate 2 randomized tile set
-  // generateRandomizedTileSet();
-  // generateRandomizedTileSet();
+   generateRandomizedTileSet();
+   generateRandomizedTileSet();
   //same color diferent shape initially
    // for (int i = 1; i < 7; i++)
    //   for (int j = 0; j < 6; j++){
@@ -116,12 +134,12 @@ void Game::gameSetup(){
    //   }
 
   //same shape different colour
-     for (int i = 0; i < 6; i++)
-       for (int j = 1; j < 7; j++){
-         //tileBag->add(new Tile(converToColour(j), i));
-         tileBag->add(new Tile(converToColour(j), i+1));
-         tileBag->add(new Tile(converToColour(j), i+1));
-       }
+     // for (int i = 0; i < 6; i++)
+     //   for (int j = 1; j < 7; j++){
+     //     //tileBag->add(new Tile(converToColour(j), i));
+     //     tileBag->add(new Tile(converToColour(j), i+1));
+     //     tileBag->add(new Tile(converToColour(j), i+1));
+     //   }
 
   //Player 1 get 6 tiles
   for (int i = 0; i < 6; i++){
@@ -135,9 +153,9 @@ void Game::gameSetup(){
   }
 }
 
-
-
 void Game::makeAMove(Player* player){
+//  std::string command;
+//  getline(cin, command);
   std::string command = getInput("> ");
   transform(command.begin(),command.end(),command.begin(),::toupper);
   //get row and col from player's command
@@ -186,6 +204,7 @@ void Game::makeAMove(Player* player){
           player1->getScore(), player2->getScore(), currentPlayerName);
   }
   else {
+    cout << "you typed " << command << endl;
     printError("Invalid input. Check input format. If not sure, type 'HELP'");
     makeAMove(player);
   }
@@ -257,7 +276,7 @@ bool Game::canPlace(vector<vector<Tile*> > boardTiles, int atRow, int atCol, Til
       tileCheckRequired += 1;
     if (atRow + 1 < board->getRows() && boardTiles[atRow + 1][atCol] != nullptr)
       tileCheckRequired += 1;
-      cout << "check required: " << tileCheckRequired << endl;
+    //  cout << "check required: " << tileCheckRequired << endl;
     if (matchHorizontalTiles(boardTiles, atRow, atCol - 1, tile, leftward))
       currentCheckPassed += 1;
     if (matchHorizontalTiles(boardTiles, atRow, atCol + 1, tile, rightward))
@@ -347,7 +366,7 @@ int Game::countRowTiles(vector<vector<Tile*> > boardTiles, int atRow, int atCol,
   while (atRow >= 0 && atRow < board->getRows() &&
             boardTiles[atRow][atCol] != nullptr) {
     tileCount++;
-    cout << tileCount << endl;
+    //cout << tileCount << endl;
     atRow += direction;
   }
 
@@ -451,7 +470,6 @@ void Game::saveGame(LinkedList* p1Hand, LinkedList* p2Hand, string p1Name,
 }
 
 void Game::loadGame(){
-
     string p1Tiles;
     string p2Tiles;
     string tilesBagL;
@@ -461,13 +479,12 @@ void Game::loadGame(){
     int p1Score;
     int p2Score;
 
-    string filename;
-    cout << "Enter the filename from which load a game: " ;
-    cin >> filename;
+    string filename = getInput("Enter the filename from which load a game: ");
+    
     filename += ".txt";
     cout << endl;
     std::fstream loadFile(filename, std::ios::in);
-    if(!loadFile.fail()){
+    if (!loadFile.fail()) {
       string loading;
       getline(loadFile, loading);
       p1Name = loading;
@@ -486,9 +503,10 @@ void Game::loadGame(){
       boardL = loading + "\n";
       getline(loadFile, loading);
       boardL += loading + "\n";
-      while(loading[2]!=','){
+
+      while(loading[2] != ',') {
         getline(loadFile, loading);
-        if(loading[2]!=','){
+        if(loading[2] != ','){
           boardL += loading + "\n";
         }
         else{
@@ -503,62 +521,59 @@ void Game::loadGame(){
       player2 = new Player(p2Name);
       player1->setScore(p1Score);
       player2->setScore(p2Score);
-      gameOver = false;
       tileBag = new LinkedList();
       currentPlayerName = player1->getName();
 
 //tiles
       int i = 0;
-      while(p1Tiles.substr(i+2, 1) == ","){
+      while(p1Tiles.substr(i + 2, 1) == ","){
         char color = p1Tiles[i];
-        int shape = std::stoi(p1Tiles.substr(i+1, 1));
+        int shape = std::stoi(p1Tiles.substr(i + 1, 1));
         player1->addTiles(new Tile(color, shape));
         i += 4;
       }
       char color = p1Tiles[i];
-      int shape = std::stoi(p1Tiles.substr(i+1, 1));
+      int shape = std::stoi(p1Tiles.substr(i + 1, 1));
       player1->addTiles(new Tile(color, shape));
 
-
       i = 0;
-      while(p2Tiles.substr(i+2, 1) == ","){
+      while (p2Tiles.substr(i + 2, 1) == ",") {
         char color = p2Tiles[i];
-        int shape = std::stoi(p2Tiles.substr(i+1, 1));
+        int shape = std::stoi(p2Tiles.substr(i + 1, 1));
         player2->addTiles(new Tile(color, shape));
         i += 4;
       }
       color = p2Tiles[i];
-      shape = std::stoi(p2Tiles.substr(i+1, 1));
+      shape = std::stoi(p2Tiles.substr(i + 1, 1));
       player2->addTiles(new Tile(color, shape));
 
-
       i = 0;
-      while(tilesBagL.substr(i+2, 1) == ","){
+      while (tilesBagL.substr(i + 2, 1) == ",") {
         char color = tilesBagL[i];
-        int shape = std::stoi(tilesBagL.substr(i+1, 1));
+        int shape = std::stoi(tilesBagL.substr(i + 1, 1));
         tileBag->add(new Tile(color, shape));
         i += 4;
       }
       color = tilesBagL[i];
-      shape = std::stoi(tilesBagL.substr(i+1, 1));
+      shape = std::stoi(tilesBagL.substr(i + 1, 1));
       tileBag->add(new Tile(color, shape));
 
 //Board
       i = 0;
-      while(boardL.substr(i+3, 1) != " "){
+      while (boardL.substr(i + 3, 1) != " ") {
         i += 3;
       }
-      boardCols = stoi(boardL.substr(i-3, 1));
+      boardCols = stoi(boardL.substr(i - 3, 1));
       boardCols = boardCols + 1;
-      boardRows = boardL.length()/(i) - 2;
+      boardRows = boardL.length() / (i) - 2;
       board = new Board(boardRows, boardCols);
 
-      for(i = 1; i < boardL.length(); i++){
-        if(boardL.substr(i, 1) == "|" && boardL.substr(i-1,1) != " "){
-          color = boardL[i-2];
+      for (i = 1; i < boardL.length(); i++) {
+        if (boardL.substr(i, 1) == "|" && boardL.substr(i - 1,1) != " ") {
+          color = boardL[i - 2];
           shape = std::stoi(boardL.substr(i-1, 1));
-          int tileCol = ((i-2)%(3*boardCols+5))/3 - 1;
-          int tileRow = ((i-2)/(3*boardCols+5))-2;
+          int tileCol = ((i - 2) % (3 * boardCols + 5)) / 3 - 1;
+          int tileRow = ((i - 2) / (3 * boardCols + 5)) - 2;
 
           board->store(new Tile(color, shape), tileRow, tileCol);
         }
@@ -566,12 +581,8 @@ void Game::loadGame(){
 
       play();
 
-
-
     }
     else{
       cout << "No that file, please check the file name without '.txt'." << endl;
     }
-
-
 }

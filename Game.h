@@ -18,11 +18,11 @@ public:
 
   ~Game();
 
-  void newGame();
+  void newGame(string name1, string name2);
 
   void generateRandomizedTileSet();
 
-  void AIMove(vector<vector<Tile*> > boardTiles);
+  void AIMove(vector<vector<Tile*> > boardTiles, Player* player);
 
   void save();
 
@@ -40,12 +40,11 @@ private:
   LinkedList* tileBag;
   Player* player1;
   Player* player2;
-  int boardRows = 6;
-  int boardCols = 6;
+  int boardRows = 8;
+  int boardCols = 8;
   int scoreToGive = 0;
   std::string currentPlayerName;
   std::string filename;
-  bool gameOver;
   bool isQwirkle = false;
 
   bool isGameOver();

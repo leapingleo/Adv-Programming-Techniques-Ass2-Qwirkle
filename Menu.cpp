@@ -4,19 +4,38 @@
 
 using std::cin;
 using std::cout;
+using std::endl;
+using std::string;
 
 Menu::Menu(){
   //getMenu();
 }
 
-void Menu::getMenu()
-{
-  std::string s = "Menu\n-----\n1. New Game\n2. Load Game\n3. Show student information\n4. Quit\nPlease Enter Your Choice: ";
+Menu::~Menu(){
+}
 
-  std::string choice = getInput(s);
+void Menu::showMenu()
+{
+  cout << "Menu" << endl;
+  cout << "-----" << endl;
+  cout << "1. New Game" << endl;
+  cout << "2. Load Game" << endl;
+  cout << "3. Show Student Information" << endl;
+  cout << "4. Quit" << endl;
+  cout << endl;
+
+  std::string choice = getInput("> ");
   if(choice == "1") {
+    cout << "Starting a New Game" << endl;
+    cout << endl;
+    string name1 = getPlayerNameInput(1);
+    string name2 = getPlayerNameInput(2);
+
+    cout << "Let's Play!\n" << endl;
     Game* game = new Game();
-    game->newGame();
+    game->newGame(name1, name2);
+  //  game->newGame("PLAYER 1", "PLAYER 2");
+    delete game;
   }
   else if (choice == "2") {
     Game* game = new Game();
@@ -24,12 +43,16 @@ void Menu::getMenu()
   }
   else if (choice == "3") {
     getStudentInfo();
-  } else {
+    showMenu();
+  }
+  else if (choice == "4") {
+    cout << "GoodBye" << endl;
+  }
+  else {
     printError("Not valid! Please Re-enter your choice!");
-    getMenu();
+    showMenu();
   }
 }
-
 
 void Menu::getStudentInfo()
 {
@@ -50,5 +73,31 @@ void Menu::getStudentInfo()
     cout <<"Can not open file"<<endl;
 
   file.close();
-  getMenu();
+  showMenu();
+}
+
+bool Menu::isValidName(std::string name) {
+  bool valid = true;
+
+  if (name != ""){
+    for (char c: name)
+      if ((!isalpha(c) || !isupper(c)))
+        valid = false;
+  }
+  else
+    valid = false;
+
+  return valid;
+}
+
+std::string Menu::getPlayerNameInput(int n) {
+  string name = "";
+  do {
+    cout << "Enter a name for player " << n << " (uppercase characters only)" << endl;
+    name = getInput("> ");
+  } while (!isValidName(name));
+  cout << endl;
+
+  return name;
+
 }

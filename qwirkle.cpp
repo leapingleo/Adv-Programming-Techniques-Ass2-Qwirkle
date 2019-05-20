@@ -1,28 +1,19 @@
 
-#include "LinkedList.h"
-#include "Tile.h"
+
 #include "Menu.h"
-#include "Player.h"
-#include "Board.h"
 #include <iostream>
-#include "Helper.h"
 #define EXIT_SUCCESS    0
 
 using std::endl;
 using std::cout;
 using std::cin;
 using std::shared_ptr;
-//void menu();
-
-// void foo(shared_ptr<int> arg);
-//
-// void foo(shared_ptr<int> arg)  {
-//   *arg += 1;
-// }
 
 int main(void) {
   Menu* menu = new Menu();
-  menu->getMenu();
+  menu->showMenu();
+
+  delete menu;
    // cout << "Welcome to Qwirkle!" << endl;
    // cout << "-------------------" << endl;
    // std::string choice = getInput("1. New Game\n");

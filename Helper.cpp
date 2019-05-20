@@ -124,7 +124,7 @@ void printError(std::string s){
 }
 
 std::string getInput(std::string s){
-  std::string output = "";
+  std::string output;
 
   std::cout << s;
   std::getline(std::cin, output);

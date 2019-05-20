@@ -8,9 +8,15 @@ using std::cin;
 
 class Menu {
 public:
-
    Menu();
-   void getMenu();
+
+   ~Menu();
+
+   void showMenu();
+
    void getStudentInfo();
 
+   bool isValidName(std::string name);
+
+   std::string getPlayerNameInput(int n);
 };
