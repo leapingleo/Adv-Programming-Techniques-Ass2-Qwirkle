@@ -45,6 +45,8 @@ public:
 private:
   int rows = 0;
   int cols = 0;
+  int maxRows = 26;
+  int maxCols = 26;
   vector<vector<Tile*> > tilesOnBoard;
   bool isFirstTilePlaced;
 };

@@ -7,7 +7,7 @@ LinkedList::LinkedList() {
 
 LinkedList::~LinkedList() {
   Node* current = head;
-  
+
   while (current != nullptr) {
     Node* toDelete = current;
     current = toDelete->next;
@@ -46,8 +46,7 @@ void LinkedList::show(){
 //get next node
 Node* LinkedList::getNext(){
   Node* node = head;
-//  deleteFront();
-
+//deleteFront();
   return node;
 }
 

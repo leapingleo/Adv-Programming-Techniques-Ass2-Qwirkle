@@ -18,12 +18,12 @@ Board::~Board(){
 void Board::store(Tile* tile, int row, int col){
   if (tilesOnBoard[row][col] == nullptr) {
      //if placed at the edge of the board, resize the 2d vector by 1
-     if (cols - col == 1) {
+     if (cols - col == 1 && cols < maxCols) {
        cols += 1;
 
        for (int i = 0; i < rows; i++)
          tilesOnBoard[i].resize(cols);
-     } else if (rows - row == 1){
+     } else if (rows - row == 1 && rows < maxRows){
        rows += 1;
        tilesOnBoard.resize(rows, vector<Tile*>(cols));
      }
@@ -100,5 +100,5 @@ bool Board::isFirstTileOnBoard(){
 
 bool Board::isWithinBound(int atRow, int atCol){
   return atRow >= 0 && atCol >= 0 && atRow < rows && atCol < cols
-          && atRow < 26 && atCol < 26;
+          && atRow < maxRows && atCol < maxCols;
 }

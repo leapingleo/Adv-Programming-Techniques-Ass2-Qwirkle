@@ -36,7 +36,7 @@ void Game::AIMove(vector<vector<Tile*> > boardTiles, Player* player){
 
   if (!board->isFirstTileOnBoard()) {
     Tile* firstTile = player->getTilesOnHand()->getHead()->getTile();
-    placeTile(firstTile, 3,3,player);
+    placeTile(firstTile, 4,3,player);
   }
 
     for (int i = 0; i < boardTiles.size(); i++) {
@@ -95,30 +95,29 @@ void Game::play(){
     if (currentPlayerName == player1->getName()){
 
       displayInfo(player1);
-    //  AIMove(board->getTilesOnBoard(), player1);
-      makeAMove(player1);
+      AIMove(board->getTilesOnBoard(), player1);
+    //  makeAMove(player1);
       givePlayerScore(player1);
       currentPlayerName = player2->getName();
       cout << "player 1: " << player1->getTilesOnHand()->size() << " tiles left" << endl;
     } else {
       displayInfo(player2);
-    //  AIMove(board->getTilesOnBoard(), player2);
-      makeAMove(player2);
+      AIMove(board->getTilesOnBoard(), player2);
+  //  makeAMove(player2);
       givePlayerScore(player2);
       currentPlayerName = player1->getName();
       cout << "player 2: " << player2->getTilesOnHand()->size() << " tiles left" << endl;
     }
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::this_thread::sleep_for(std::chrono::milliseconds(130));
   }
   endGameInfo(player1, player2);
 }
-
-
 
 void Game::gameSetup(){
   //generate 2 randomized tile set
    generateRandomizedTileSet();
    generateRandomizedTileSet();
+  // generateRandomizedTileSet();
   //same color diferent shape initially
    // for (int i = 1; i < 7; i++)
    //   for (int j = 0; j < 6; j++){
@@ -304,49 +303,87 @@ bool Game::matchHorizontalTiles(vector<vector<Tile*> > boardTiles,
     int towardsRight = atCol + 1;
     int towardsUp = atRow - 1;
     int towardsDown = atRow + 1;
+    std::vector<Tile*> horizontalTiles;
+    std::vector<Tile*> verticalTiles;
+    std::vector<Tile*> leftTiles;
+    std::vector<Tile*> rightTiles;
+    std::vector<Tile*> upTiles;
+    std::vector<Tile*> downTiles;
+    bool horizontalCheck = false;
+    bool verticalCheck = false;
 
-    while (!endCheck && towardsLeft >= 0 && towardsLeft < board->getCols() &&
+    while (towardsLeft >= 0 &&
       boardTiles[atRow][towardsLeft] != nullptr) {
-        if (boardTiles[atRow][towardsLeft]->getColour() == tile->getColour()
-            && boardTiles[atRow][towardsLeft]->getShape() != tile->getShape()) {
-          valid = true;
-          towardsLeft -= 1;
-        } else {
-          valid = false;
-          endCheck = true;
-        }
+        leftTiles.push_back(boardTiles[atRow][towardsLeft]);
+        horizontalTiles.push_back(boardTiles[atRow][towardsLeft]);
+        towardsLeft--;
     }
-    while (boardTiles[atRow][towardsRight] != nullptr && !endCheck && towardsRight >= 0 && towardsRight < board->getCols()) {
-        if (boardTiles[atRow][towardsRight]->getColour() == tile->getColour()
-            && boardTiles[atRow][towardsRight]->getShape() != tile->getShape()) {
-          valid = true;
-          towardsRight += 1;
-        } else {
-          valid = false;
-          endCheck = true;
-        }
+    while (boardTiles[atRow][towardsRight] != nullptr && towardsRight < board->getCols()) {
+        rightTiles.push_back(boardTiles[atRow][towardsRight]);
+          horizontalTiles.push_back(boardTiles[atRow][towardsRight]);
+        towardsRight++;
     }
-    while (!endCheck && towardsUp >= 0 && towardsUp < board->getRows() &&
+    while (towardsUp >= 0 &&
          boardTiles[towardsUp][atCol] != nullptr) {
-      if (boardTiles[towardsUp][atCol]->getColour() != tile->getColour()
-          && boardTiles[towardsUp][atCol]->getShape() == tile->getShape()) {
-        valid = true;
-        towardsUp -= 1;
-      } else {
-        valid = false;
+      upTiles.push_back(boardTiles[towardsUp][atCol]);
+      verticalTiles.push_back(boardTiles[towardsUp][atCol]);
+      towardsUp -= 1;
+    }
+    while (towardsDown < board->getRows() &&
+         boardTiles[towardsDown][atCol] != nullptr) {
+      downTiles.push_back(boardTiles[towardsDown][atCol]);
+      verticalTiles.push_back(boardTiles[towardsDown][atCol]);
+      towardsDown += 1;
+    }
+
+    for (int i = 0; i < horizontalTiles.size(); i++){
+      if (horizontalTiles[i]->getColour() == tile->getColour()
+           && horizontalTiles[i]->getShape() != tile->getShape() && !endCheck) {
+             horizontalCheck = true;
+           }
+      else {
+        horizontalCheck = false;
         endCheck = true;
       }
     }
-    while (!endCheck && towardsDown >= 0 && towardsDown < board->getRows() &&
-         boardTiles[towardsDown][atCol] != nullptr) {
-      if (boardTiles[towardsDown][atCol]->getColour() != tile->getColour()
-          && boardTiles[towardsDown][atCol]->getShape() == tile->getShape()) {
-        valid = true;
-        towardsDown += 1;
-      } else {
-        valid = false;
+
+    for (int i = 0; i < verticalTiles.size(); i++){
+      if (verticalTiles[i]->getColour() != tile->getColour()
+           && verticalTiles[i]->getShape() == tile->getShape() && !endCheck) {
+             verticalCheck = true;
+           }
+      else{
+        verticalCheck = false;
         endCheck = true;
       }
+    }
+
+    for (int i = 0; i < leftTiles.size(); i++){
+      for (int j = 0; j < rightTiles.size(); j++)
+        if (leftTiles[i]->toString() == rightTiles[j]->toString() && !endCheck){
+          endCheck = true;
+          horizontalCheck = false;
+        }
+    }
+
+    for (int i = 0; i < upTiles.size(); i++){
+      for (int j = 0; j < downTiles.size(); j++)
+        if (upTiles[i]->toString() == downTiles[j]->toString() && !endCheck){
+          endCheck = true;
+          verticalCheck = false;
+        }
+    }
+
+
+    if (verticalTiles.empty() && horizontalCheck){
+      valid = true;
+    }
+    if (horizontalTiles.empty() && verticalCheck) {
+      valid = true;
+    }
+    if (!horizontalTiles.empty() && !horizontalTiles.empty()) {
+      if (horizontalCheck && verticalCheck)
+        valid = true;
     }
 
     return valid;
@@ -629,9 +666,7 @@ void Game::loadGame(){
           board->store(new Tile(color, shape), tileRow, tileCol);
         }
       }
-
       play();
-
     }
     else{
       cout << "No such file, please check the file name!" << endl;
