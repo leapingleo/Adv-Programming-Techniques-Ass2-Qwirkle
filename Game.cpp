@@ -497,14 +497,17 @@ void Game::showResult(){
 
 }
 
+// Save file function
 void Game::saveGame(LinkedList* p1Hand, LinkedList* p2Hand, string p1Name,
                   string p2Name,int p1Score, int p2Score, string currentPlayer)
 {
+    // Make vector board to string
     string fullBoard = board->boardHeaderToString();
     fullBoard += board->boardBodyToString();
     std::ofstream saveFile(filename);
 
     if(!saveFile.fail()){
+        // Save player1's name and score
         saveFile << p1Name << "\n";
         saveFile << p1Score << "\n";
         Node* current = p1Hand->getHead();
@@ -519,6 +522,7 @@ void Game::saveGame(LinkedList* p1Hand, LinkedList* p2Hand, string p1Name,
         saveFile << p2Name << "\n";
         saveFile << p2Score << "\n";
 
+        // Tostring and Save player2's handtiles
         current = p2Hand->getHead();
 
         while(current != nullptr){
@@ -528,8 +532,11 @@ void Game::saveGame(LinkedList* p1Hand, LinkedList* p2Hand, string p1Name,
                 saveFile << current->getTile()->toString() << "\n";
             current = current->next;
         }
+
+        // Save the board
         saveFile << fullBoard;
 
+        // Tostring and Save tilebags
         current = this->tileBag->getHead();
 
         while(current != nullptr){
@@ -546,7 +553,10 @@ void Game::saveGame(LinkedList* p1Hand, LinkedList* p2Hand, string p1Name,
     }
 }
 
+
+// Load file function
 void Game::loadGame(){
+    // Create some useful variable
     string p1Tiles;
     string p2Tiles;
     string tilesBagL;
@@ -556,12 +566,15 @@ void Game::loadGame(){
     int p1Score;
     int p2Score;
 
+    // Get the file name
     string filename = getInput("Enter the filename from which load a game: ");
-
     filename += ".txt";
     cout << endl;
+
+    // basic load from txt
     std::fstream loadFile(filename, std::ios::in);
     if (!loadFile.fail()) {
+      //load information as string
       string loading;
       getline(loadFile, loading);
       p1Name = loading;
@@ -575,12 +588,13 @@ void Game::loadGame(){
       p2Score = std::stoi(loading);
       getline(loadFile, loading);
       p2Tiles = loading;
-
+      // add board title in one string
       getline(loadFile, loading);
       boardL = loading + "\n";
       getline(loadFile, loading);
       boardL += loading + "\n";
 
+      // used to split board and tilebag
       while(loading[2] != ',') {
         getline(loadFile, loading);
         if(loading[2] != ','){
@@ -593,7 +607,7 @@ void Game::loadGame(){
       getline(loadFile, loading);
       currentPlayerName = loading;
 
-//name, score
+//implement the string of name and score to the program
       player1 = new Player(p1Name);
       player2 = new Player(p2Name);
       player1->setScore(p1Score);
@@ -601,7 +615,7 @@ void Game::loadGame(){
       tileBag = new LinkedList();
       currentPlayerName = player1->getName();
 
-//tiles
+//add player1 player2 and tilebags to different linkedlist
       int i = 0;
       while(p1Tiles.substr(i + 2, 1) == ","){
         char color = p1Tiles[i];
@@ -635,16 +649,18 @@ void Game::loadGame(){
       shape = std::stoi(tilesBagL.substr(i + 1, 1));
       tileBag->add(new Tile(color, shape));
 
-//Board
+// use string board to create a new board and place tiles
       i = 0;
       while (boardL.substr(i + 3, 1) != " ") {
         i += 3;
       }
+      // use mathematic way to get the column and rows of board
       boardCols = stoi(boardL.substr(i - 3, 1));
       boardCols = boardCols + 1;
       boardRows = boardL.length() / (i) - 2;
       board = new Board(boardRows, boardCols);
 
+      // use mathematic way to get tiles in board and the position of tiles
       for (i = 1; i < boardL.length(); i++) {
         if (boardL.substr(i, 1) == "|" && boardL.substr(i - 1,1) != " ") {
           color = boardL[i - 2];
@@ -652,9 +668,11 @@ void Game::loadGame(){
           int tileCol = ((i - 2) % (3 * boardCols + 5)) / 3 - 1;
           int tileRow = ((i - 2) / (3 * boardCols + 5)) - 2;
 
+          // place tiles
           board->store(new Tile(color, shape), tileRow, tileCol);
         }
       }
+      // continue game
       play();
     }
     else{
