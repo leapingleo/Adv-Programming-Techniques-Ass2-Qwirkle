@@ -26,21 +26,22 @@ void Menu::showMenu()
   cout << endl;
 
   std::string choice = getInput("> ");
-  if(choice == "1") {
+  if(choice  == "1") {
     cout << "Starting a New Game" << endl;
     cout << endl;
-  //string name1 = getPlayerNameInput(1);
-  //string name2 = getPlayerNameInput(2);
+    string name1 = getPlayerNameInput(1);
+    string name2 = getPlayerNameInput(2);
 
     cout << "Let's Play!\n" << endl;
     Game* game = new Game();
-  //game->newGame(name1, name2);
-    game->newGame("LEO", "TOMAS");
+    game->newGame(name1, name2);
+
     delete game;
   }
   else if (choice == "2") {
     Game* game = new Game();
     game->loadGame();
+
     delete game;
   }
   else if (choice == "3") {
@@ -66,7 +67,7 @@ void Menu::showMenu()
 
 void Menu::getStudentInfo()
 {
-  std::fstream file("test.txt",std::ios::in);
+  std::fstream file("studentInfo.txt",std::ios::in);
 
   if (!file.fail()) {
     while (!file.eof()) {

@@ -1,0 +1,17 @@
+----------------------------------
+Name: Yiyi Zhang
+Student ID: s3788101
+Email: s3788101@student.rmit.edu.au
+
+Name: Tianchi	Zhang
+Student ID: s3608799
+Email: s3608799@student.rmit.edu.au
+
+Name: Deyu Lin
+Student ID: s3582292
+Email: s3582292@student.rmit.edu.au
+
+Name: Zhiwei Hou
+Student ID: s3699329
+Email: s3699329@student.rmit.edu.au
+----------------------------------

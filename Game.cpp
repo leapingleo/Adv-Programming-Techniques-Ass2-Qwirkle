@@ -19,7 +19,6 @@ bool Game::isGameOver() {
 //set up a new game with players, tile bags, and dive into play
 void Game::newGame(string name1, string name2){
   board = new Board(boardRows, boardCols);
-//  board = new Board(boardRows, boardCols);
   player1 = new Player(name1);
   player2 = new Player(name2);
   currentPlayerName = player1->getName();
@@ -106,8 +105,8 @@ void Game::play(){
     while (!isGameOver() && !exitDuringGame && !noMorePossibleMoves) {
       if (currentPlayerName == player1->getName()) {
         displayInfo(player1);
-        AIMove(board->getTilesOnBoard(), player1);
-      //  makeAMove(player1);
+      //  AIMove(board->getTilesOnBoard(), player1);
+        makeAMove(player1);
         givePlayerScore(player1);
         currentPlayerName = player2->getName();
      } else {
@@ -210,8 +209,16 @@ void Game::makeAMove(Player* player){
           player1->getScore(), player2->getScore(), currentPlayerName);
     makeAMove(player);
   }
+  else if (command.substr(0, 5) == "HELP"){
+    cout << "You can PLACE a tile by entering, PLACE XX AT YY, where XX is the tile you" << endl;
+    cout << "want to place, and YY is the spot you want to place" << endl;
+    cout << "Or You can replace a tile by entering, replace xx, where xx is the tile you" << endl;
+    cout << "You can save the game anytime, by entering 'save ' with your desired file name." << endl;
+    makeAMove(player);
+  }
   else if (cin.eof()){
     exitDuringGame = true;
+    cout << "GoodBye" << endl;
   }
   else {
     printError("Invalid Input");
