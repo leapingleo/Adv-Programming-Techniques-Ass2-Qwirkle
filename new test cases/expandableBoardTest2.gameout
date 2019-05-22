@@ -1,0 +1,35 @@
+LEO, it's your turn
+
+Score for LEO: 0
+Score for TOMAS: 0
+
+   0  1  2  3  4  5
+  -------------------
+A |  |  |  |  |  |  |
+B |  |  |  |  |  |  |
+C |  |  |  |  |  |  |
+D |  |  |  |  |  |  |
+E |  |  |  |  |  |  |
+F |  |  |  |  |  |  |
+
+Your hand is,
+O1, O2, O3, O4, O5, O6
+> place o1 at f3
+
+TOMAS, it's your turn
+
+Score for LEO: 1
+Score for TOMAS: 0
+
+   0  1  2  3  4  5
+  -------------------
+A |  |  |  |  |  |  |
+B |  |  |  |  |  |  |
+C |  |  |  |  |  |  |
+D |  |  |  |  |  |  |
+E |  |  |  |  |  |  |
+F |  |  |  |O1|  |  |
+G |  |  |  |  |  |  |
+
+Your hand is,
+Y1, Y2, Y3, Y4, Y5, Y6

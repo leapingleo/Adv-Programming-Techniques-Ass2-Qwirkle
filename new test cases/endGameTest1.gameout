@@ -1,0 +1,32 @@
+LEO, it's your turn
+
+Score for LEO: 11
+Score for TOMAS: 15
+
+   0  1  2  3  4  5  6  7  8
+  ----------------------------
+A |  |  |  |  |  |  |  |  |  |
+B |  |  |  |  |  |  |  |  |  |
+C |  |  |  |O1|O2|O3|O4|O5|  |
+D |  |  |  |Y1|Y2|Y3|Y4|Y5|  |
+E |  |  |  |  |  |  |  |  |  |
+F |  |  |  |  |  |  |  |  |  |
+
+Your hand is,
+O6
+> place o6 at c8
+
+QWIRKLE!!!
+   0  1  2  3  4  5  6  7  8  9
+  -------------------------------
+A |  |  |  |  |  |  |  |  |  |  |
+B |  |  |  |  |  |  |  |  |  |  |
+C |  |  |  |O1|O2|O3|O4|O5|O6|  |
+D |  |  |  |Y1|Y2|Y3|Y4|Y5|  |  |
+E |  |  |  |  |  |  |  |  |  |  |
+F |  |  |  |  |  |  |  |  |  |  |
+GAME OVER
+Score for LEO: 23
+Score for TOMAS: 15
+Player LEO won!
+Goodbye

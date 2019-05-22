@@ -2,14 +2,10 @@
 #include <iostream>
 #define EXIT_SUCCESS 0
 
-using std::endl;
-using std::cout;
-using std::cin;
-
 int main(void) {
   Menu* menu = new Menu();
   menu->showMenu();
-
+  std::cout << "Goodbye" << std::endl;
   delete menu;
    // cout << "Welcome to Qwirkle!" << endl;
    // cout << "-------------------" << endl;

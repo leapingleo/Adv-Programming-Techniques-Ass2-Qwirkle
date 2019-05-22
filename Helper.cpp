@@ -118,6 +118,25 @@ int letterToInt(std::string rowLetter){
    return n;
 }
 
+char converToColour(int n){
+  char colour = RED;
+
+  if (n == 0)
+    colour = RED;
+  else if (n == 1)
+    colour = ORANGE;
+  else if (n == 2)
+    colour = YELLOW;
+  else if (n == 3)
+    colour = GREEN;
+  else if (n == 4)
+    colour = BLUE;
+  else if (n == 5)
+    colour = PURPLE;
+
+  return colour;
+}
+
 void printError(std::string s){
   std::cout << s << std::endl;
   std::cout << std::endl;
@@ -132,22 +151,9 @@ std::string getInput(std::string s){
   return output;
 }
 
-bool isWithinBound(int atRow, int atCol, int maxRows, int maxCols){
-  std::cout << "row is " << maxRows << std::endl;
-
-  return atRow >= 0 && atCol >= 0 && atRow < maxRows && atCol < maxCols;
-}
-
-bool isSameColour(Tile* tile1, Tile* tile2){
-
-  return tile1->getColour() == tile2->getColour()
-         && tile1 != nullptr && tile2 != nullptr;
-}
-
 std::vector<int> randomSet(int min, int max){
   std::vector<int> a;
   int set[max];
-
   srand((int)time(NULL));
 
   for (int i = 0; i < max; i++) {
@@ -169,14 +175,4 @@ std::vector<int> randomSet(int min, int max){
     a.push_back(set[i]);
 
   return a;
-}
-
-std::vector<std::string> remove(std::string s, std::vector<std::string> set) {
-
-  for (int i = 0; i < set.size(); i++){
-    if (set[i] == s)
-      set.erase(set.begin() + i);
-  }
-  return set;
-
 }

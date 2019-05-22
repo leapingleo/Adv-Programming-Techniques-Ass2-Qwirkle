@@ -1,0 +1,16 @@
+0  1  2  3  4  5  6  7
+-------------------------
+A |  |  |  |  |  |  |  |  |
+B |  |  |  |  |  |  |  |  |
+C |  |  |  |  |  |  |  |  |
+D |  |  |  |  |  |  |  |  |
+E |  |  |  |  |  |  |  |  |
+F |  |  |  |  |  |  |  |  |
+G |  |  |  |  |  |  |  |  |
+H |  |  |  |  |  |  |  |  |
+
+Your hand is,
+O1, Y1, G1, B1, P1, R1
+
+> place at d3
+Invalid input. Check input format. If not sure, type 'HELP'
