@@ -7,6 +7,7 @@ Game::~Game(){
   delete player1;
   delete player2;
   delete tileBag;
+  delete board;
 }
 
 //return one of the end game condition, i.e no more tiles in the bag,
@@ -45,8 +46,8 @@ void Game::AIMove(vector<vector<Tile*> > boardTiles, Player* player){
     placeTile(firstTile, 4,3,player);
   }
 
-  for (int i = 0; i < boardTiles.size(); i++) {
-    for (int j = 0; j < boardTiles[i].size(); j++) {
+  for (int i = 0; i < (signed int)boardTiles.size(); i++) {
+    for (int j = 0; j < (signed int)boardTiles[i].size(); j++) {
       if (boardTiles[i][j] != nullptr) {
         if (j - 1 >= 0 && boardTiles[i][j - 1] == nullptr) {
           string spotString = letterForRows(i) + std::to_string(j - 1);
@@ -69,7 +70,7 @@ void Game::AIMove(vector<vector<Tile*> > boardTiles, Player* player){
   }
 
   //  try each tile on the hand at each possible spot...
-  for (int i = 0; i < possibleSpots.size(); i++) {
+  for (int i = 0; i < (signed int)possibleSpots.size(); i++) {
     int atRow = letterToInt(possibleSpots[i].substr(0, 1));
     int atCol = std::stoi(possibleSpots[i].substr(1, 2));
 
@@ -105,7 +106,6 @@ void Game::play(){
     while (!isGameOver() && !exitDuringGame && !noMorePossibleMoves) {
       if (currentPlayerName == player1->getName()) {
         displayInfo(player1);
-      //  AIMove(board->getTilesOnBoard(), player1);
         makeAMove(player1);
         givePlayerScore(player1);
         currentPlayerName = player2->getName();
@@ -244,13 +244,13 @@ void Game::generateRandomizedTileSet(){
   std::vector<int> shapeSet = randomSet(1,6);
   std::vector<std::string> randomTileStringSet;
 
-  for (int i = 0; i < colourSet.size(); i++){
+  for (int i = 0; i < (signed int)colourSet.size(); i++){
     //make sure seed is different at each i
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
     //further randomization for each column loop
     shapeSet = randomSet(1,6);
 
-    for (int j = 0; j < shapeSet.size(); j++) {
+    for (int j = 0; j < (signed int)shapeSet.size(); j++) {
       std::string tileString = std::to_string(colourSet[i]) + std::to_string(shapeSet[j]);
       randomTileStringSet.push_back(tileString);
     }
@@ -262,7 +262,7 @@ void Game::generateRandomizedTileSet(){
           std::default_random_engine(seed));
 
   //retrieve each string element and parse to int, create a tile and add to tile bag
-  for (int i = 0; i < randomTileStringSet.size(); i++) {
+  for (int i = 0; i < (signed int)randomTileStringSet.size(); i++) {
     char colour = std::stoi(randomTileStringSet[i].substr(0,1));
     int shape = std::stoi(randomTileStringSet[i].substr(1,1));
     tileBag->add(new Tile(converToColour(colour), shape));
@@ -332,7 +332,7 @@ bool Game::isMatchingTilesAround(vector<vector<Tile*> > boardTiles,
     }
 
     //check if a tile matching the horizontal rule, i.e same colour & diff shape
-    for (int i = 0; i < horizontalTiles.size(); i++){
+    for (int i = 0; i < (signed int)horizontalTiles.size(); i++){
       if (horizontalTiles[i]->getColour() == tile->getColour() &&
           horizontalTiles[i]->getShape() != tile->getShape() && !endCheck) {
              horizontalCheckPassed = true;
@@ -344,7 +344,7 @@ bool Game::isMatchingTilesAround(vector<vector<Tile*> > boardTiles,
     }
 
     //check if a tile matching the vertical rule, i.e same shape & diff colour
-    for (int i = 0; i < verticalTiles.size(); i++){
+    for (int i = 0; i < (signed int)verticalTiles.size(); i++){
       if (verticalTiles[i]->getColour() != tile->getColour() &&
           verticalTiles[i]->getShape() == tile->getShape() && !endCheck) {
              verticalCheckPassed = true;
@@ -356,8 +356,8 @@ bool Game::isMatchingTilesAround(vector<vector<Tile*> > boardTiles,
     }
 
     //check tiles on its left and on its right are unique
-    for (int i = 0; i < leftTiles.size(); i++) {
-      for (int j = 0; j < rightTiles.size(); j++) {
+    for (int i = 0; i < (signed int)leftTiles.size(); i++) {
+      for (int j = 0; j < (signed int)rightTiles.size(); j++) {
         if (leftTiles[i]->toString() == rightTiles[j]->toString() && !endCheck) {
           endCheck = true;
           horizontalCheckPassed = false;
@@ -366,8 +366,8 @@ bool Game::isMatchingTilesAround(vector<vector<Tile*> > boardTiles,
     }
 
     //check tiles at its above and tiles below it are unique
-    for (int i = 0; i < upTiles.size(); i++){
-      for (int j = 0; j < downTiles.size(); j++) {
+    for (int i = 0; i < (signed int)upTiles.size(); i++){
+      for (int j = 0; j < (signed int)downTiles.size(); j++) {
         if (upTiles[i]->toString() == downTiles[j]->toString() && !endCheck){
           endCheck = true;
           verticalCheckPassed = false;
@@ -661,7 +661,7 @@ void Game::loadGame(){
       board = new Board(boardRows, boardCols);
 
       // use mathematic way to get tiles in board and the position of tiles
-      for (i = 1; i < boardL.length(); i++) {
+      for (i = 1; i < (signed int)boardL.length(); i++) {
         if (boardL.substr(i, 1) == "|" && boardL.substr(i - 1,1) != " ") {
           color = boardL[i - 2];
           shape = std::stoi(boardL.substr(i-1, 1));

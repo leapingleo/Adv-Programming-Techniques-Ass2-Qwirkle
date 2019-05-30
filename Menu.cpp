@@ -84,7 +84,6 @@ void Menu::getStudentInfo()
     cout <<"Can not open file"<<endl;
 
   file.close();
-  showMenu();
 }
 
 bool Menu::isValidName(std::string name) {

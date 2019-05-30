@@ -9,8 +9,8 @@ Board::Board(int rows, int cols){
 }
 
 Board::~Board(){
-  for (int i = 0; i < tilesOnBoard.size(); i++)
-    for (int j = 0; j < tilesOnBoard[i].size(); j++)
+  for (int i = 0; i < (signed int)tilesOnBoard.size(); i++)
+    for (int j = 0; j < (signed int)tilesOnBoard[i].size(); j++)
       delete tilesOnBoard[i][j];
 }
 
@@ -37,17 +37,17 @@ void Board::store(Tile* tile, int row, int col){
 string Board::boardBodyToString(){
   string s = "";
 
-  for (int i = 0; i < tilesOnBoard.size(); i++){
+  for (int i = 0; i < (signed int)tilesOnBoard.size(); i++){
     //conver row number to letters
     s += letterForRows(i) + " |";
-    for (int j = 0; j < tilesOnBoard[i].size(); j++){
+    for (int j = 0; j < (signed int)tilesOnBoard[i].size(); j++){
       if (tilesOnBoard[i][j] != nullptr)
         s += tilesOnBoard[i][j]->toString() + "|";
       else{
         s += "  |";
       }
     }
-    s += "\r\n";
+    s += "\n";
   }
   return s;
 }
@@ -65,11 +65,11 @@ string Board::boardHeaderToString(){
   }
 
   //second row of the board, dashes
-  s += "\r\n  ";
+  s += "\n  ";
   for (int i = 0; i < numOfDashesToPrint; i++){
     s += "-";
   }
-  s += "\r\n";
+  s += "\n";
   return s;
 }
 
